@@ -6,11 +6,17 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/11 18:02:23 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/12 14:32:37 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+void	struct_to_nul(void)
+{
+	g_flags.flag = 0;
+	g_flags.width = 0;
+}
 
 int		intlen(int n)
 {
@@ -49,7 +55,6 @@ int		check_width(const char *str)
 		g_flags.width = ft_atoi(str);
 		i = intlen(g_flags.width);
 	}
-	else
-		g_flags.width = 0;
+	printf("%i\n", i);
 	return (i);
 }

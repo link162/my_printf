@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 12:23:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/11 18:00:05 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/12 14:33:45 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int main(void)
 {
-		int i = printf("w%10iorld\n", 42);
-		int j = ft_printf("w%10iorld\n", 42);
+		int i = printf("wo\trld\n");
+		int j = ft_printf("wo\trld\n");
 
 	printf("origin-%i\nmy    -%i\n", i, j);
 }

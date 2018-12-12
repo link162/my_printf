@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/11 17:58:43 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/12 14:32:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ int		ft_printf(const char *format, ...);
 void	ft_putchar(char c);
 int		intlen(int n);
 int		check_width(const char *str);
-
+void	struct_to_nul(void);
 #endif
