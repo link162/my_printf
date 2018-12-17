@@ -14,6 +14,7 @@
 
 void	ft_putchar(char c)
 {
+	g_count++;
 	write(1, &c, 1);
 }
 
@@ -37,43 +38,34 @@ int		check_flags2(const char *str)
 	return (i);
 }
 
-int		check_flags(const char *str)
+int		check_flags(char c)
 {
-	int i;
-
-	i = 0;
-	if (str[i] == '-')
+	static int i;
+	if (i > 4)
+		return (0);
+	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0')
 	{
-		while (str[i] == '-')
-			i++;
-		g_flags.flag = '-';
-		return (i);
+		g_flags.flag[i++] = c;
+		return (1);
 	}
-	else if (str[i] == '+')
-	{
-		while (str[i] == '+')
-			i++;
-		g_flags.flag = '+';
-		return (i);
-	}
-	else if (str[i] == ' ')
-	{
-		while (str[i] == ' ')
-			i++;
-		g_flags.flag = ' ';
-		return (i);
-	}
-	return (check_flags2(str));
+	return (0);
 }
 
-void	check_specified(const char *str, va_list argptr)
+int	check_specified(const char *str, va_list argptr)
 {
 	int i;
 
+	struct_to_nul();
 	i = 1;
-	i += check_flags(&str[i]);
+	while (check_flags(str[i]))
+			i++;
 	i += check_width(&str[i]);
-	printf("%i\n", va_arg(argptr, int));
+	i += check_precision(&str[i]);
+	i += check_length(&str[i]);
+	check_symbol(str[i]);
+//		return (0); //add error case
+	prepare_to_print(argptr);
+	return (i);
 }
 
 int		ft_printf(const char *format, ...)
@@ -82,7 +74,6 @@ int		ft_printf(const char *format, ...)
 	int		i;
 
 	i = 0;
-	struct_to_nul();
 	va_start(argptr, format);
 	while (format[i])
 	{
@@ -91,13 +82,10 @@ int		ft_printf(const char *format, ...)
 			if (format[i + 1] == '%')
 				ft_putchar(format[i++]);
 			else
-				check_specified(&format[i], argptr); 
+				i += check_specified(&format[i], argptr); 
 		}
 		else
-		{
-			g_count++;
 			ft_putchar(format[i]);
-		}
 		i++;
 	}
 	va_end(argptr);

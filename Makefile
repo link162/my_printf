@@ -12,7 +12,8 @@
 
 NAME = printf
 FLAGS = -Wall -Wextra -Werror
-FILES = main.c ft_printf.c parsing.c
+FILES = main.c ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c \
+		print_char.c
 OBJECT = $(FILES:.c=.o)
 
 $(NAME) : $(OBJECT)

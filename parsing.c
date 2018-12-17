@@ -16,6 +16,9 @@ void	struct_to_nul(void)
 {
 	g_flags.flag = 0;
 	g_flags.width = 0;
+	g_flags.symbol = 0;
+	g_flags.precision = 0;
+	g_flags.length = 0;
 }
 
 int		intlen(int n)
@@ -32,17 +35,34 @@ int		intlen(int n)
 
 int		ft_atoi(const char *str)
 {
-	int result;
+	long result;
 	int i;
 
 	i = 0;
 	result = 0;
-	while ('0' <= str[i] && str[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
+		if (result > 2147483646)
+			return (-1);//допилить выход
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
 	return (result);
+}
+
+int		check_precision(const char *str)
+{
+	int i;
+
+	i = 0;
+	if(str[i] == '.')
+	{
+		if (str[1] < '1' || str[1] > '9')
+				return (-1);
+		g_flags.precision = ft_atoi(&str[1]);
+		i = intlen(g_flags.precision) + 1;
+	}
+	return (i);
 }
 
 int		check_width(const char *str)
@@ -55,6 +75,5 @@ int		check_width(const char *str)
 		g_flags.width = ft_atoi(str);
 		i = intlen(g_flags.width);
 	}
-	printf("%i\n", i);
 	return (i);
 }

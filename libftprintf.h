@@ -20,15 +20,22 @@
 unsigned long long	g_count;
 typedef struct		g_stuct
 {
-	char			flag;
+	char			flag[5];
 	int				width;
-	int				size;
+	int				length;
 	int				precision;
+	int				symbol;
 } g_data;
 g_data		g_flags;
 int		ft_printf(const char *format, ...);
 void	ft_putchar(char c);
 int		intlen(int n);
 int		check_width(const char *str);
+int		check_length(const char *str);
+int		check_symbol(char c);
+int		check_precision(const char *str);
+void	prepare_to_print(va_list argptr);
+void	print_int(int nbr);
 void	struct_to_nul(void);
+
 #endif

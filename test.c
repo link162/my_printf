@@ -2,5 +2,7 @@
 
 int main(void)
 {
-	printf("%i\n", printf("%2147483647i\n", 42));
+	int x = 5;
+	int *z = &x;
+	printf("%b\n", 42);
 }

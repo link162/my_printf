@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+
 #include "libftprintf.h"
 
 int main(void)
 {
-		int i = printf("wo\trld\n");
-		int j = ft_printf("wo\trld\n");
+//		int i = printf("%-10.20i", 42);
+		ft_printf("%-10.3hhf", 42.123456);
 
-	printf("origin-%i\nmy    -%i\n", i, j);
+//	printf("origin-%i\nmy    -%i\n", i, j);
 }
