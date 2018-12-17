@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/12 14:32:37 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/17 17:33:09 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	struct_to_nul(void)
 {
-	g_flags.flag = 0;
+	int i;
+	
+	i = 0;
+	while (i < 5)
+		g_flags.flag[i++] = 0;
 	g_flags.width = 0;
 	g_flags.symbol = 0;
 	g_flags.precision = 0;

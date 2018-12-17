@@ -2,7 +2,5 @@
 
 int main(void)
 {
-	int x = 5;
-	int *z = &x;
-	printf("%b\n", 42);
+	printf("%5.10i\n", 42);
 }

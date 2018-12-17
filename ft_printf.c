@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/11 18:06:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/17 17:37:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,20 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int		check_flags2(const char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == '#')
-	{
-		while (str[i] == '#')
-			i++;
-		g_flags.flag = '#';
-	}
-	else if (str[i] == '0')
-	{
-		while (str[i] == '0')
-			i++;
-		g_flags.flag = '0';
-	}
-	return (i);
-}
-
 int		check_flags(char c)
 {
-	static int i;
-	if (i > 4)
-		return (0);
 	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0')
 	{
-		g_flags.flag[i++] = c;
+		if (c == '-')
+			g_flags.flag[0] = c;
+		else if (c == '+')
+			g_flags.flag[1] = c;
+		else if (c == ' ')
+			g_flags.flag[2] = c;
+		else if (c == '0')
+			g_flags.flag[3] = c;
+		else if (c == '#')
+			g_flags.flag[4] = c;
 		return (1);
 	}
 	return (0);
@@ -62,8 +48,8 @@ int	check_specified(const char *str, va_list argptr)
 	i += check_width(&str[i]);
 	i += check_precision(&str[i]);
 	i += check_length(&str[i]);
-	check_symbol(str[i]);
-//		return (0); //add error case
+	if (check_symbol(str[i])
+		return (i);
 	prepare_to_print(argptr);
 	return (i);
 }

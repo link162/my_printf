@@ -6,14 +6,13 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 12:22:16 by ybuhai            #+#    #+#              #
-#    Updated: 2018/12/11 18:01:02 by ybuhai           ###   ########.fr        #
+#    Updated: 2018/12/17 16:48:05 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = printf
 FLAGS = -Wall -Wextra -Werror
-FILES = main.c ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c \
-		print_char.c
+FILES = main.c ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c 
 OBJECT = $(FILES:.c=.o)
 
 $(NAME) : $(OBJECT)
