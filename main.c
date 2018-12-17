@@ -15,8 +15,8 @@
 
 int main(void)
 {
-//		int i = printf("%i\n", 42);
-		ft_printf("%i\n", -4000);
+		int i = printf("%-+10.5if\n", 100);
+		int j = ft_printf("%-+10.5if\n", 100);
 
-//	printf("origin-%i\nmy    -%i\n", i, j);
+	printf("origin-%i\nmy    -%i\n", i, j);
 }

@@ -48,7 +48,7 @@ int	check_specified(const char *str, va_list argptr)
 	i += check_width(&str[i]);
 	i += check_precision(&str[i]);
 	i += check_length(&str[i]);
-	if (check_symbol(str[i])
+	if (!(check_symbol(str[i])))
 		return (i);
 	prepare_to_print(argptr);
 	return (i);
@@ -59,6 +59,7 @@ int		ft_printf(const char *format, ...)
 	va_list argptr;
 	int		i;
 
+	g_count = 0;
 	i = 0;
 	va_start(argptr, format);
 	while (format[i])
