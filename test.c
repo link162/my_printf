@@ -2,5 +2,5 @@
 
 int main(void)
 {
-	printf("%-+ 10.5if\n", 42);
+	printf("%10.-1s\n", "hello");
 }

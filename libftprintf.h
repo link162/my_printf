@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/18 12:38:32 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/18 13:19:41 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		check_symbol(char c);
 int		check_precision(const char *str);
 void	prepare_to_print(va_list argptr);
 void	print_char(int c);
+void	print_str(char *str);
 void	print_int(int nbr);
 void	struct_to_nul(void);
 
