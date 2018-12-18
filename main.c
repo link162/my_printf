@@ -6,17 +6,16 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 12:23:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/17 16:54:43 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/18 13:06:58 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libftprintf.h"
 
 int main(void)
 {
-		int i = printf("%-+10.5if\n", 100);
-		int j = ft_printf("%-+10.5if\n", 100);
+		int i = printf("%+-0 3.5cf\n", 69);
+		int j = ft_printf("%+-0 3.5cf\n", 69);
 
 	printf("origin-%i\nmy    -%i\n", i, j);
 }

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/17 17:07:45 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/18 12:38:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ typedef struct		g_stuct
 } g_data;
 g_data		g_flags;
 int		ft_printf(const char *format, ...);
-void	ft_putchar(char c);
+void	ft_putchar(int c);
 int		intlen(int n);
 int		check_width(const char *str);
 int		check_length(const char *str);
 int		check_symbol(char c);
 int		check_precision(const char *str);
 void	prepare_to_print(va_list argptr);
+void	print_char(int c);
 void	print_int(int nbr);
 void	struct_to_nul(void);
 

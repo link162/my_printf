@@ -23,13 +23,19 @@ void	print_first_nbr(int nbr, int nulls_before, int free_place)
 {
 	int i;
 
-	if (g_flags.flag[1] == '+' && nbr < 0)
+	if (g_flags.flag[1] == '+' && nbr > 0)
+	{
 		ft_putchar('+');
-	else if (g_flags.flag[2] == ' ' && nbr < 0)
+		free_place--;
+	}
+	else if (g_flags.flag[2] == ' ' && nbr > 0)
+	{
 		ft_putchar(' ');
+		free_place--;
+	}
 	i = 0;
 	while (i++ < nulls_before)
-		ft_putchar(0);
+		ft_putchar('0');
 	ft_putnbr(nbr);
 	i = 0;
 	while (i++ < free_place)
@@ -41,14 +47,19 @@ void	print_last_nbr(int nbr, int nulls_before, int free_place)
 	int i;
 
 	i = 0;
+	if (g_flags.flag[1] == '+' || g_flags.flag[2] == ' ')
+	{
+		g_flags.flag[3] = 0;
+		free_place--;
+	}
 	while (i++ < free_place)
 		if (g_flags.flag[3] == '0')
 			ft_putchar('0');
 		else
 			ft_putchar(' ');
-	if (g_flags.flag[1] == '+' && nbr < 0)
+	if (g_flags.flag[1] == '+' && nbr > 0)
 		ft_putchar('+');
-	else if (g_flags.flag[2] == ' ' && nbr < 0)
+	else if (g_flags.flag[2] == ' ' && nbr > 0)
 		ft_putchar(' ');
 	i = 0;
 	while (i++ < nulls_before)

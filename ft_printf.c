@@ -6,13 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/17 17:37:32 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/18 12:39:04 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putchar(char c)
+void	ft_putchar(int c)
 {
 	g_count++;
 	write(1, &c, 1);
