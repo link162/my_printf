@@ -36,7 +36,7 @@ int		check_symbol(char c);
 int		check_precision(const char *str);
 void	prepare_to_print(va_list argptr);
 void	print_char(int c);
-void	print_str(char *str);
+void	print_str(char *str, int i);
 void	print_int(int nbr);
 void	struct_to_nul(void);
 

@@ -35,7 +35,7 @@ void	print_char(int nbr)
 		free_place = g_flags.width - 1;
 	if (g_flags.flag[0] == '-')
 	{
-		ft_putchar(c);
+		ft_putchar(nbr);
 		while (i++ < free_place)
 			ft_putchar(' ');
 	}
@@ -43,15 +43,35 @@ void	print_char(int nbr)
 	{
 		while (i ++ < free_place)
 			ft_putchar(' ');
-		ft_putchar(c);
+		ft_putchar(nbr);
 	}
 }
 
-void	print_str(char *str)
+void	print_str(char *str, int i)
 {
-	int str_len;
-	int free_place;
+	int		str_len;
+	int		free_place;
+	int		lenght;
 
+	free_place = 0;
 	str_len = ft_str_len(str);
-	if
+	lenght = str_len;
+	if (g_flags.precision >= 0 && g_flags.precision < str_len)
+			lenght = g_flags.precision;
+	if (g_flags.width > str_len)
+		free_place = g_flags.width - lenght;
+	if (g_flags.flag[0] == '-')
+	{
+		while (i < lenght)
+			ft_putchar(str[i++]);
+		while (free_place--)
+			ft_putchar(' ');
+	}
+	else
+	{
+		while (free_place--)
+			ft_putchar(' ');
+		while (i < lenght)
+			ft_putchar(str[i++]);
+	}
 }

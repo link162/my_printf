@@ -7,5 +7,5 @@ void	prepare_to_print(va_list argptr)
 	else if (g_flags.symbol == 'c')
 		print_char(va_arg(argptr, int));
 	else if (g_flags.symbol == 's')
-		print_str(va_arg(argptr, char *));
+		print_str(va_arg(argptr, char *), 0);
 }
