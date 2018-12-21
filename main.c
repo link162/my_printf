@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 12:23:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/18 14:51:07 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/21 20:43:12 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(void)
 {
-		int i = printf("%s hello %-5if\n", "hello", 43);
-		int j = ft_printf("%s hello %-5if\n", "hello", 43);
+		int i = printf("%-5.4if\n", -807);
+		int j = ft_printf("%-5.4if\n", -807);
 	printf("origin-%i\nmy    -%i\n", i, j);
 }

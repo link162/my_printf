@@ -1,25 +1,23 @@
 #include "libftprintf.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr(long long int c)
 {
-	long x;
+	unsigned long long x;
 
-	x = (long)n;
-	if (x < 0)
-	{
-		ft_putchar('-');
-		x *= -1;
-	}
+	if (c < 0)
+		x = c * -1;
+	else
+		x = c;
 	if (x > 9)
 	{
 		ft_putnbr(x / 10);
 		ft_putnbr(x % 10);
 	}
-	if (x < 10 && x >= 0)
+	if (x < 10 )
 		ft_putchar(x + 48);
 }
 
-void	print_first_nbr(int nbr, int nulls_before, int free_place)
+void	print_first_nbr(long long int nbr, int nulls_before, int free_place)
 {
 	int i;
 
@@ -33,6 +31,8 @@ void	print_first_nbr(int nbr, int nulls_before, int free_place)
 		ft_putchar(' ');
 		free_place--;
 	}
+	else if (nbr < 0)
+		ft_putchar('-');
 	i = 0;
 	while (i++ < nulls_before)
 		ft_putchar('0');
@@ -42,7 +42,7 @@ void	print_first_nbr(int nbr, int nulls_before, int free_place)
 		ft_putchar(' ');
 }
 
-void	print_last_nbr(int nbr, int nulls_before, int free_place)
+void	print_last_nbr(long long int nbr, int nulls_before, int free_place)
 {
 	int i;
 
@@ -61,13 +61,15 @@ void	print_last_nbr(int nbr, int nulls_before, int free_place)
 		ft_putchar('+');
 	else if (g_flags.flag[2] == ' ' && nbr > 0)
 		ft_putchar(' ');
+	else if (nbr < 0)
+		ft_putchar('-');
 	i = 0;
 	while (i++ < nulls_before)
 		ft_putchar('0');
 	ft_putnbr(nbr);
 }
 
-void	print_int(int nbr)
+void	print_int(long long int nbr)
 {
 	int int_len;
 	int	x;
@@ -77,6 +79,8 @@ void	print_int(int nbr)
 	free_place_before_nbr = 0;
 	nulls_before_nbr = 0;
 	int_len = intlen(nbr);
+	if (nbr < 0)
+		int_len--;
 	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && (nbr < 0))
 		int_len++;
 	if (int_len <= g_flags.precision)

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/18 14:52:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/21 18:01:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	struct_to_nul(void)
 	g_flags.length = 0;
 }
 
-int		intlen(int n)
+int		intlen(long long int n)
 {
 	int	j;
 
