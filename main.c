@@ -14,7 +14,9 @@
 
 int main(void)
 {
-		int i = printf("%-5.4if\n", -807);
-		int j = ft_printf("%-5.4if\n", -807);
+		int z = 5;
+		int *x = &z;
+		int i = printf("%#4llXo\n", 55);
+		int j = ft_printf("%#4llXm\n", 55);
 	printf("origin-%i\nmy    -%i\n", i, j);
 }

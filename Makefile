@@ -13,12 +13,12 @@
 NAME = printf
 FLAGS = -Wall -Wextra -Werror
 FILES = main.c ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c\
-		print_char_str.c
+		print_char_str.c print_hex.c
 OBJECT = $(FILES:.c=.o)
 
 $(NAME) : $(OBJECT)
-	@gcc -c $(FILES)
-	@gcc -o $(NAME) $(OBJECT)
+	@ gcc -c $(FILES)
+	@ gcc -o $(NAME) $(OBJECT)
 
 all: $(NAME)
 

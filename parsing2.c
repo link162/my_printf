@@ -1,5 +1,53 @@
 #include "libftprintf.h"
 
+char hex_digit(int v)
+{
+	if (v >= 0 && v < 10)
+		return '0' + v;
+	else
+		return 'a' + v - 10;
+}
+void	ft_bzero(void *destination, size_t n)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = destination;
+	while (i < n)
+	{
+		*(ptr + i) = '\0';
+		i++;
+	}
+}
+
+void	print_address_hex(void* p0)
+{
+	int i;
+	int counter;
+	counter = 1;
+	intptr_t p = (intptr_t)p0;
+	char str[255];
+
+	ft_bzero(str, 255);
+	str[0] = '0';
+	str[1] = 'x';
+	i = (sizeof(p) << 3) - 4;
+	while (i >= 0)
+	{
+		if (counter == 1)
+		{
+			while (hex_digit((p >> i) & 0xf) == '0')
+				i -= 4;
+			counter = 2;
+		}
+	str[counter++] = hex_digit((p >> i) & 0xf);
+	i -= 4;
+	}
+	print_ptr(str);
+}
+
+
 int check_length(const char *str)
 {
 	if(str[0] == 'h')

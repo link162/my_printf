@@ -1,13 +1,7 @@
 #include "libftprintf.h"
 
-void	ft_putnbr(long long int c)
+void	ft_putnbr(__int128 x)
 {
-	unsigned long long x;
-
-	if (c < 0)
-		x = c * -1;
-	else
-		x = c;
 	if (x > 9)
 	{
 		ft_putnbr(x / 10);
@@ -17,7 +11,7 @@ void	ft_putnbr(long long int c)
 		ft_putchar(x + 48);
 }
 
-void	print_first_nbr(long long int nbr, int nulls_before, int free_place)
+void	print_first_nbr(__int128 nbr, int nulls_before, int free_place)
 {
 	int i;
 
@@ -32,7 +26,10 @@ void	print_first_nbr(long long int nbr, int nulls_before, int free_place)
 		free_place--;
 	}
 	else if (nbr < 0)
+	{
 		ft_putchar('-');
+		nbr *= -1;
+	}
 	i = 0;
 	while (i++ < nulls_before)
 		ft_putchar('0');
@@ -42,7 +39,7 @@ void	print_first_nbr(long long int nbr, int nulls_before, int free_place)
 		ft_putchar(' ');
 }
 
-void	print_last_nbr(long long int nbr, int nulls_before, int free_place)
+void	print_last_nbr(__int128 nbr, int nulls_before, int free_place)
 {
 	int i;
 
@@ -62,14 +59,17 @@ void	print_last_nbr(long long int nbr, int nulls_before, int free_place)
 	else if (g_flags.flag[2] == ' ' && nbr > 0)
 		ft_putchar(' ');
 	else if (nbr < 0)
+	{
 		ft_putchar('-');
+		nbr *= -1;
+	}
 	i = 0;
 	while (i++ < nulls_before)
 		ft_putchar('0');
 	ft_putnbr(nbr);
 }
 
-void	print_int(long long int nbr)
+void	print_int(__int128 nbr)
 {
 	int int_len;
 	int	x;
@@ -80,14 +80,18 @@ void	print_int(long long int nbr)
 	nulls_before_nbr = 0;
 	int_len = intlen(nbr);
 	if (nbr < 0)
-		int_len--;
-	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && (nbr < 0))
+			int_len--;
+	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr < 0)
 		int_len++;
 	if (int_len <= g_flags.precision)
 		nulls_before_nbr = g_flags.precision - int_len;
-	x = int_len > g_flags.precision ? g_flags.width - int_len : g_flags.width - g_flags.precision;
+/*	if (nbr < 0 && nulls_before_nbr > 0)
+		nulls_before_nbr++;*/
+	x = int_len >= g_flags.precision ? g_flags.width - int_len - 1 : g_flags.width - g_flags.precision;
 	if (int_len <= g_flags.width || g_flags.precision <= g_flags.width)
 		free_place_before_nbr = x;
+	if (nbr < 0 && nulls_before_nbr > 0)
+		free_place_before_nbr--;
 	if (g_flags.flag[0] == '-')
 		print_first_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
 	else

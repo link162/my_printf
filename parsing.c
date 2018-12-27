@@ -19,13 +19,13 @@ void	struct_to_nul(void)
 	i = 0;
 	while (i < 5)
 		g_flags.flag[i++] = 0;
-	g_flags.width = 0;
+	g_flags.width = -1;
 	g_flags.symbol = 0;
 	g_flags.precision = -1;
 	g_flags.length = 0;
 }
 
-int		intlen(long long int n)
+int		intlen(__int128 n)
 {
 	int	j;
 

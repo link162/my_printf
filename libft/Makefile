@@ -34,7 +34,7 @@ HEADERS = libft.h
 OBJECT = $(FILES:.c=.o)
 
 $(NAME):
-	gcc $(FLAGS) $(FILES)
+	gcc $(FILES)
 	ar rc $(NAME) $(OBJECT)
 	ranlib $(NAME)
 

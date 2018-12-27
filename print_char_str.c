@@ -24,6 +24,49 @@ size_t	ft_str_len(const char *str)
 	return (i);
 }
 
+void	print_ptr(char *str)
+{
+	int		i;
+	int		str_len;
+	int		free_place;
+	int		nulls_before;
+
+	i = 0;
+	free_place = 0;
+	str_len = ft_str_len(str);
+	if (g_flags.precision > str_len - 2)
+		nulls_before = g_flags.precision - str_len + 2;
+	if (g_flags.width > str_len || g_flags.width > g_flags.precision + 2)
+		free_place = str_len > g_flags.precision + 2 ? g_flags.width - str_len : g_flags.width - g_flags.precision - 2;
+	if (g_flags.flag[0] == '-')
+	{
+		while (i < 2)
+			ft_putchar(str[i++]);
+		i = 0;
+		while (i++ < nulls_before)
+			ft_putchar('0');
+		i = 2;
+		while (i < str_len)
+			ft_putchar(str[i++]);
+		while (free_place--)
+			ft_putchar(' ');
+	}
+	else
+	{
+		while (free_place--)
+			ft_putchar(' ');
+		while (i < 2)
+			ft_putchar(str[i++]);
+		i = 0;
+		while (i++ < nulls_before)
+			ft_putchar('0');
+		i = 2;
+		while (i < str_len)
+			ft_putchar(str[i++]);
+	}
+}
+
+
 void	print_char(int nbr)
 {
 	int	free_place;
@@ -47,12 +90,14 @@ void	print_char(int nbr)
 	}
 }
 
-void	print_str(char *str, int i)
+void	print_str(char *str)
 {
+	int		i;
 	int		str_len;
 	int		free_place;
 	int		lenght;
 
+	i = 0;
 	free_place = 0;
 	str_len = ft_str_len(str);
 	lenght = str_len;

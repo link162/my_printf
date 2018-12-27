@@ -29,15 +29,21 @@ typedef struct		g_stuct
 g_data		g_flags;
 int		ft_printf(const char *format, ...);
 void	ft_putchar(int c);
-int		intlen(long long int n);
+int		intlen(__int128 n);
 int		check_width(const char *str);
 int		check_length(const char *str);
 int		check_symbol(char c);
 int		check_precision(const char *str);
 void	prepare_to_print(va_list argptr);
 void	print_char(int c);
-void	print_str(char *str, int i);
-void	print_int(long long int nbr);
+void	print_str(char *str);
+void	print_int(__int128 nbr);
 void	struct_to_nul(void);
+void	print_address_hex(void *p0);
+void	print_ptr(char *str);
+void	print_hex(__int128 nbr);
+size_t	ft_str_len(const char *str);
+
+void	ft_bzero(void *destination, size_t n);
 
 #endif
