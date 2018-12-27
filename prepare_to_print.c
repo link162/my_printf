@@ -1,35 +1,23 @@
 #include "libftprintf.h"
 
-char *convert_ftos(long double nbr)
-{
-	
-}
-
-void	print_double(long double nbr)
-{
-	char *str;
-
-	str = convert_ftos(nbr);
-}
-
 void	prepare_to_print2(va_list argptr)
 {
 	if (g_flags.symbol == 'p')
 		print_address_hex(va_arg(argptr, void *));
-	else if (g_flags.symbol == 'x' || g_flags.symbol == 'X' && g_flags.length == 0)
+	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X') && g_flags.length == 0)
 		print_hex(va_arg(argptr, unsigned int));
-	else if (g_flags.symbol == 'x' || g_flags.symbol == 'X' && g_flags.length == 1)
+	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X') && g_flags.length == 1)
 		print_hex((unsigned short)va_arg(argptr, int));
-	else if (g_flags.symbol == 'x' || g_flags.symbol == 'X' && g_flags.length == 2)
+	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X') && g_flags.length == 2)
 		print_hex((unsigned char)va_arg(argptr, int));
-	else if (g_flags.symbol == 'x' || g_flags.symbol == 'X' && g_flags.length == 3)
+	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X') && g_flags.length == 3)
 		print_hex(va_arg(argptr, unsigned long));
-	else if (g_flags.symbol == 'x' || g_flags.symbol == 'X' && g_flags.length == 4)
+	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X') && g_flags.length == 4)
 		print_hex(va_arg(argptr, unsigned long long));
 	else if (g_flags.symbol == 'f' && g_flags.length == 0)
-		print_float(va_arg(argptr, double));
+		print_double(va_arg(argptr, double));
 	else if (g_flags.symbol == 'f' && g_flags.length == 5)
-		print_float(va_arg(argptr, long double));
+		print_double(va_arg(argptr, long double));
 }
 
 void	prepare_to_print(va_list argptr)

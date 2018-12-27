@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/21 17:59:48 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/27 17:38:08 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	struct_to_nul(void);
 void	print_address_hex(void *p0);
 void	print_ptr(char *str);
 void	print_hex(__int128 nbr);
+void	print_double(long double nbr);
 size_t	ft_str_len(const char *str);
 
 void	ft_bzero(void *destination, size_t n);
