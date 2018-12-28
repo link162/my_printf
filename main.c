@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 12:23:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/27 20:14:02 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/28 08:01:13 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int main(void)
 {
 		int z = 5;
 		int *x = &z;
-		int i = printf("%fo\n", 184467440666777.53);
-		int j = ft_printf("%fm\n", 184467440666777.53);
+		double f = 1122.7;
+		int i = printf("%.10fo\n", f);
+		int j = ft_printf("%.10fm\n", f);
 	printf("origin-%i\nmy    -%i\n", i, j);
 }

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 17:17:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/27 20:21:26 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/28 08:11:48 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,88 +62,40 @@ char		*ft_itoa(__int128 n)
 	return (str);
 }
 
-char * myfloat(long double f)
+char *ftoi(long double nbr)
 {
-
-	char size = '4';
 	char *str;
-	char pos;  // position in string
-	char len;  // length of decimal part of result
-	char* curr;  // temp holder for next digit
-	int value;  // decimal digit(s) to convert
+	char pos;
+	char len;
+	char* curr;
+	__int128 res;
+	nbr += 0.0000005;
+	pos = 0;
 
-	f += 0.0000005;
-	pos = 0;  // initialize pos, just to be sure
-
-	value = (__int128)f;  // truncate the floating point number
-	str = ft_itoa(value);  // this is kinda dangerous depending on the length of str
-	// now str array has the digits before the decimal
-	if (f < 0 )  // handle negative numbers
+	res = (__int128)nbr;  
+	str = ft_itoa(res);
+	if (nbr < 0)
 	{
-		f *= -1;
-		value *= -1;
+		nbr *= -1;
+		res *= -1;
 	}
-
-
-	len = ft_str_len(str);  // find out how big the integer part was
-	pos = len;  // position the pointer to the end of the integer part
-	str[pos++] = '.';  // add decimal point to string
-
-	while(pos < (len + 7) )  // process remaining digits
+	len = ft_str_len(str); 
+	pos = len;
+	str[pos++] = '.';  
+	while(pos < (len + 7) )  
 	{
-		f = f - (double)value;  // hack off the whole part of the number
-		f *= 10;  // move next digit over
-		value = (int)f;  // get next digit
-		curr = ft_itoa(value); // convert digit to string
-		str[pos++] = *curr; // add digit to result string and increment pointer
+		nbr = nbr - (double)res;  
+		nbr *= 10;  
+		res = (int)nbr;  
+		curr = ft_itoa(res); 
+		str[pos++] = *curr;
 	}
 	return (str);
 }
-
-char * mygfloat(double f)
-{
-    char *str;
-    int size = 2;
-    unsigned char pos;
-    char len;
-    char* curr;
-    int value;
-
-    pos = 0;
-	//f += 0.005;
-    value = (int)f;
-    str = ft_itoa(value);
-
-
-    if (f < 0 )
-    {
-        f *= -1;
-        value *= -1;
-    }
-
-    len = ft_str_len(str);
-    pos = len;
-    str[pos++] = '.';
-    while(pos < (size + len + 1) )
-    {
-        f = f - (float)value;
-        f *= 10;
-        curr = ft_itoa(value);
-        str[pos++] = *curr;
-    }
-    pos = 0;
-    while(str[pos])
-    {
-        if (!(ft_isdigit(str[pos])) && str[pos] != '.')
-            str[pos] = '\0';
-        pos++;
-    }
-    return (str);
-}
-
+  
 void print_double(long double nbr)
 {
-	char *str = myfloat(nbr);
+	char *str = ftoi(nbr);
 	int i = 0;
 	while (str[i])
 		ft_putchar(str[i++]);
