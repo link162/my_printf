@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/21 18:01:23 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/28 09:13:02 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	struct_to_nul(void)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < 5)
 		g_flags.flag[i++] = 0;
@@ -39,15 +39,15 @@ int		intlen(__int128 n)
 
 int		ft_atoi(const char *str)
 {
-	long result;
-	int i;
+	long	result;
+	int		i;
 
 	i = 0;
 	result = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result > 2147483646)
-			return (-1);//допилить выход
+			return (-1);
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
@@ -59,10 +59,10 @@ int		check_precision(const char *str)
 	int i;
 
 	i = 0;
-	if(str[i] == '.')
+	if (str[i] == '.')
 	{
 		if (str[1] < '0' || str[1] > '9')
-				return (-1);
+			return (-1);
 		g_flags.precision = ft_atoi(&str[1]);
 		i = intlen(g_flags.precision) + 1;
 	}

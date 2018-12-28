@@ -6,11 +6,73 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 17:17:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/28 08:11:48 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/28 14:18:49 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+char	*ft_strcpy(char *dest, const char *src)
+{
+	size_t i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strdup(const char *src)
+{
+	int		i;
+	char	*dest;
+
+	i = ft_str_len(src);
+	dest = malloc(sizeof(*dest) * (i + 1));
+	if (dest == NULL)
+		return (NULL);
+	ft_strcpy(dest, src);
+	return (dest);
+}
+
+char	*ft_strcat(char *dest, const char *src)
+{
+	size_t r;
+	size_t n;
+
+	n = 0;
+	r = 0;
+	while (dest[n] != '\0')
+		n++;
+	while (src[r] != '\0')
+	{
+		dest[n] = src[r];
+		r++;
+		n++;
+	}
+	dest[n] = '\0';
+	return (dest);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	n;
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	n = ft_str_len(s1) + ft_str_len(s2) + 1;
+	str = (char *)malloc(sizeof(*s1) * n);
+	if (!str)
+		return (NULL);
+	ft_strcpy(str, s1);
+	ft_strcat(str, s2);
+	return (str);
+}
 
 int		ft_isdigit(int ch)
 {
@@ -39,7 +101,7 @@ char		*ft_itoa(__int128 n)
 	char	*str;
 
 	i = count_ch(n);
-	str = (char *)malloc(sizeof(char) * i);
+	str = (char *)malloc(sizeof(char) * (i));
 	if (!str)
 		return (NULL);
 	ft_bzero(str, i);
@@ -62,41 +124,73 @@ char		*ft_itoa(__int128 n)
 	return (str);
 }
 
-char *ftoi(long double nbr)
+char		*ftoi(long double nbr)
 {
-	char *str;
-	char pos;
-	char len;
-	char* curr;
-	__int128 res;
-	nbr += 0.0000005;
-	pos = 0;
+	char		*str;
+	char		*tmp2;
+	int			len;
+	char*		tmp;
+	__int128	res;
 
-	res = (__int128)nbr;  
+	res = (__int128)nbr;
 	str = ft_itoa(res);
 	if (nbr < 0)
 	{
 		nbr *= -1;
 		res *= -1;
 	}
-	len = ft_str_len(str); 
-	pos = len;
-	str[pos++] = '.';  
-	while(pos < (len + 7) )  
+	len = g_flags.precision >= 0 ? g_flags.precision : 6;
+	if (len)
 	{
-		nbr = nbr - (double)res;  
-		nbr *= 10;  
-		res = (int)nbr;  
-		curr = ft_itoa(res); 
-		str[pos++] = *curr;
+		tmp = ft_strjoin(str, ".");
+		free(str);
+		str = ft_strdup(tmp);
+		free(tmp);
+		while(len)
+		{
+			nbr -= (long double)res;
+			nbr *= 10;
+			res = (__int128)nbr;
+			tmp = ft_itoa(res);
+			tmp2 = ft_strjoin(str, tmp);
+			free(tmp);
+			free(str);
+			str = ft_strdup(tmp2);
+			free(tmp2);
+			len--;
+		}
 	}
 	return (str);
 }
   
 void print_double(long double nbr)
 {
-	char *str = ftoi(nbr);
-	int i = 0;
-	while (str[i])
-		ft_putchar(str[i++]);
+	char *str;
+	int i;
+
+	str = ftoi(nbr);/*
+	int int_len;
+	int	x;
+	int nulls_before_nbr;
+	int	free_place_before_nbr;
+
+	free_place_before_nbr = 0;
+	nulls_before_nbr = 0;
+	int_len = intlen(nbr);
+	if (nbr < 0)
+			int_len--;
+	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr < 0)
+		int_len++;
+	if (int_len <= g_flags.precision)
+		nulls_before_nbr = g_flags.precision - int_len;
+	x = int_len >= g_flags.precision ? g_flags.width - int_len - 1 : g_flags.width - g_flags.precision;
+	if (int_len <= g_flags.width || g_flags.precision <= g_flags.width)
+		free_place_before_nbr = x;
+	if (nbr < 0 && nulls_before_nbr > 0)
+		free_place_before_nbr--;
+	if (g_flags.flag[0] == '-')
+		print_first_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
+	else
+		print_last_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
+*/
 }

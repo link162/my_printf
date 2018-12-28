@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/18 12:39:04 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/28 09:10:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int		check_flags(char c)
 	return (0);
 }
 
-int	check_specified(const char *str, va_list argptr)
+int		check_specified(const char *str, va_list argptr)
 {
 	int i;
 
 	struct_to_nul();
 	i = 1;
 	while (check_flags(str[i]))
-			i++;
+		i++;
 	i += check_width(&str[i]);
 	i += check_precision(&str[i]);
 	i += check_length(&str[i]);
@@ -69,7 +69,7 @@ int		ft_printf(const char *format, ...)
 			if (format[i + 1] == '%')
 				ft_putchar(format[i++]);
 			else
-				i += check_specified(&format[i], argptr); 
+				i += check_specified(&format[i], argptr);
 		}
 		else
 			ft_putchar(format[i]);

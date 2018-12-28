@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/28 09:13:35 by ybuhai            #+#    #+#             */
+/*   Updated: 2018/12/28 09:17:35 by ybuhai           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
-char hex_digit(int v)
+char	hex_digit(int v)
 {
 	if (v >= 0 && v < 10)
-		return '0' + v;
+		return ('0' + v);
 	else
-		return 'a' + v - 10;
+		return ('a' + v - 10);
 }
+
 void	ft_bzero(void *destination, size_t n)
 {
 	char	*ptr;
@@ -21,14 +34,15 @@ void	ft_bzero(void *destination, size_t n)
 	}
 }
 
-void	print_address_hex(void* p0)
+void	print_address_hex(void *p0)
 {
-	int i;
-	int counter;
-	counter = 1;
-	intptr_t p = (intptr_t)p0;
-	char str[255];
+	int			i;
+	int			counter;
+	intptr_t	p;
+	char		str[255];
 
+	counter = 1;
+	p = (intptr_t)p0;
 	ft_bzero(str, 255);
 	str[0] = '0';
 	str[1] = 'x';
@@ -41,16 +55,15 @@ void	print_address_hex(void* p0)
 				i -= 4;
 			counter = 2;
 		}
-	str[counter++] = hex_digit((p >> i) & 0xf);
-	i -= 4;
+		str[counter++] = hex_digit((p >> i) & 0xf);
+		i -= 4;
 	}
 	print_ptr(str);
 }
 
-
-int check_length(const char *str)
+int		check_length(const char *str)
 {
-	if(str[0] == 'h')
+	if (str[0] == 'h')
 	{
 		if (str[1] == 'h')
 			g_flags.length = 2;

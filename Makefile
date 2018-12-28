@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 12:22:16 by ybuhai            #+#    #+#              #
-#    Updated: 2018/12/27 17:38:57 by ybuhai           ###   ########.fr        #
+#    Updated: 2018/12/28 09:24:05 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ OBJECT = $(FILES:.c=.o)
 $(NAME) : $(OBJECT)
 	@ gcc -c $(FILES)
 	@ gcc -o $(NAME) $(OBJECT)
+	@ rm -rf $(OBJECT)
 
 all: $(NAME)
 
