@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 17:17:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/28 14:18:49 by ybuhai           ###   ########.fr       */
+/*   Updated: 2018/12/28 17:22:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,30 +167,24 @@ void print_double(long double nbr)
 {
 	char *str;
 	int i;
-
-	str = ftoi(nbr);/*
-	int int_len;
-	int	x;
+	int nbr_len;
 	int nulls_before_nbr;
 	int	free_place_before_nbr;
 
+	str = ftoi(nbr);
 	free_place_before_nbr = 0;
 	nulls_before_nbr = 0;
-	int_len = intlen(nbr);
+	nbr_len = ft_str_len(str);
 	if (nbr < 0)
 			int_len--;
-	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr < 0)
-		int_len++;
-	if (int_len <= g_flags.precision)
+	if (g_flags.precision >= 0)
+		g_flags.flag[3] = 0;
+	if (int_len < g_flags.precision)
 		nulls_before_nbr = g_flags.precision - int_len;
-	x = int_len >= g_flags.precision ? g_flags.width - int_len - 1 : g_flags.width - g_flags.precision;
-	if (int_len <= g_flags.width || g_flags.precision <= g_flags.width)
-		free_place_before_nbr = x;
-	if (nbr < 0 && nulls_before_nbr > 0)
-		free_place_before_nbr--;
+	if (int_len + (nbr < 0 ? 1 : 0) + nulls_before_nbr < g_flags.width)
+		free_place_before_nbr = g_flags.width - int_len - (nbr < 0 ? 1 : 0) - nulls_before_nbr;
 	if (g_flags.flag[0] == '-')
 		print_first_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
 	else
 		print_last_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
-*/
 }
