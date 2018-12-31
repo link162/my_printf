@@ -17,8 +17,8 @@ FILES = main.c ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c\
 OBJECT = $(FILES:.c=.o)
 
 $(NAME) : $(OBJECT)
-	@ gcc -c $(FILES)
-	@ gcc -o $(NAME) $(OBJECT)
+	@ gcc -g3 -O0 -c $(FILES)
+	@ gcc -g3 -O0 -o $(NAME) $(OBJECT)
 	@ rm -rf $(OBJECT)
 
 all: $(NAME)

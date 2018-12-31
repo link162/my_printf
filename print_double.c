@@ -133,7 +133,9 @@ char		*ftoi(long double nbr)
 	__int128	res;
 
 	res = (__int128)nbr;
+	printf("%u\n", res);
 	str = ft_itoa(res);
+	printf("***%s***\n", str);
 	if (nbr < 0)
 	{
 		nbr *= -1;
@@ -162,29 +164,79 @@ char		*ftoi(long double nbr)
 	}
 	return (str);
 }
-  
+
 void print_double(long double nbr)
 {
 	char *str;
 	int i;
 	int nbr_len;
-	int nulls_before_nbr;
-	int	free_place_before_nbr;
+	int n;
+	long double f;
 
-	str = ftoi(nbr);
-	free_place_before_nbr = 0;
-	nulls_before_nbr = 0;
-	nbr_len = ft_str_len(str);
-	if (nbr < 0)
-			int_len--;
 	if (g_flags.precision >= 0)
-		g_flags.flag[3] = 0;
-	if (int_len < g_flags.precision)
-		nulls_before_nbr = g_flags.precision - int_len;
-	if (int_len + (nbr < 0 ? 1 : 0) + nulls_before_nbr < g_flags.width)
-		free_place_before_nbr = g_flags.width - int_len - (nbr < 0 ? 1 : 0) - nulls_before_nbr;
-	if (g_flags.flag[0] == '-')
-		print_first_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
+	{
+		f = 0.5;
+		i = 0;
+		while (i++ < g_flags.precision)
+			f /= 10;
+		if (nbr > 0)
+			nbr += f;
+		else if (nbr < 0)
+			nbr -= f;
+	}
 	else
-		print_last_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
+		nbr += 0.0000005;
+	str = ftoi(nbr);
+	nbr_len = ft_str_len(str);
+	if (g_flags.flag[0] == '-')
+	{
+		i = 0;
+		if (nbr >= 0 && g_flags.flag[1] == '+')
+		{
+			ft_putchar('+');
+			g_flags.width--;
+		}
+		else if (nbr >=0 && g_flags.flag[2] == ' ')
+		{
+			ft_putchar(' ');
+			g_flags.width--;
+		}
+		while (str[i])
+			ft_putchar(str[i++]);
+		i = g_flags.width - nbr_len;
+		while (i-- > 0)
+			ft_putchar(' ');
+	}
+	else
+	{
+		i = 0;
+		if (str[i] == '-' && g_flags.flag[3] == '0')
+			ft_putchar(str[i++]);
+		if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr >= 0)
+			g_flags.width--;
+		n = g_flags.width - nbr_len;
+		if (g_flags.flag[3] == '0' && nbr >= 0)
+		{
+			if (g_flags.flag[1] == '+')
+				ft_putchar('+');
+			else if (g_flags.flag[2] == ' ')
+				ft_putchar(' ');
+		}
+		while (n-- > 0)
+		{
+			if (g_flags.flag[3] == '0')
+				ft_putchar('0');
+			else
+				ft_putchar(' ');
+		}
+		if (g_flags.flag[3] != '0' && nbr >= 0)
+		{
+			if (g_flags.flag[1] == '+')
+				ft_putchar('+');
+			else if (g_flags.flag[2] == ' ')
+				ft_putchar(' ');
+		}
+		while (str[i])
+			ft_putchar(str[i++]);
+	}
 }

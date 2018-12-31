@@ -16,9 +16,9 @@ int main(void)
 {
 		int z = 5;
 		int *x = &z;
-		long double f = 12.59;
+		long double f = -154645654636364644464663774747457476475727257577252.95444699999;
 		int t = 42;
-		int i = printf("%0+9.4io\n", t);
-		int j = ft_printf("%0+9.4im\n", t);
+		int i = printf("%+015.9Lfo\n", f);
+		int j = ft_printf("%+015.9Lfm\n", f);
 	printf("origin-%i\nmy    -%i\n", i, j);
 }

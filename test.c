@@ -2,7 +2,7 @@
 
 int main(void)
 {
-	double z = -42.1;
-	int x = 0;
-	printf("%+3i\n", x);
+	__int128  x = 2334567876543234567;
+
+	printf("%j\n", x);
 }
