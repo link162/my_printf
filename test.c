@@ -2,7 +2,7 @@
 
 int main(void)
 {
-	__int128  x = 2334567876543234567;
+	int x = 999;
 
-	printf("%j\n", x);
+	printf("%#o\n", x);
 }

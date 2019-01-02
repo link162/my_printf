@@ -43,8 +43,8 @@ void	print_address_hex(void *p0);
 void	print_ptr(char *str);
 void	print_hex(__int128 nbr);
 void	print_double(long double nbr);
+void	print_octal(unsigned long long nbr);
 size_t	ft_str_len(const char *str);
-
 void	ft_bzero(void *destination, size_t n);
 
 #endif

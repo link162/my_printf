@@ -30,6 +30,10 @@ void	prepare_to_print2(va_list argptr)
 		print_double(va_arg(argptr, double));
 	else if (g_flags.symbol == 'f' && g_flags.length == 5)
 		print_double(va_arg(argptr, long double));
+	else if (g_flags.symbol == 'o' && g_flags.length == 0)
+		print_octal(va_arg(argptr, unsigned int));
+	else if (g_flags.symbol == 'o' && g_flags.length == 1)
+		print_octal((unsigned short)va_arg(argptr, int));
 }
 
 void	prepare_to_print(va_list argptr)

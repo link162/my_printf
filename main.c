@@ -14,8 +14,8 @@
 
 int main(void)
 {
-		double f = -0.000001;
-		int i = printf("% +020fo\n", f);
-		int j = ft_printf("% +020fm\n", f);
+		int x = 32;
+		int i = printf("%o\n", x);
+		int j = ft_printf("%#om\n", x);
 	printf("origin-%i\nmy    -%i\n", i, j);
 }
