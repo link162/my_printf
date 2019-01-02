@@ -82,87 +82,105 @@ int		ft_isdigit(int ch)
 		return (0);
 }
 
-
-static int	count_ch(__int128 n)
+void	float_init(long double num, unsigned int *i, int *f, char *res)
 {
-	int	j;
-
-	j = 2;
-	if (n < 0)
-		j++;
-	while (n /= 10)
-		j++;
-	return (j);
+	*i = 0;
+	if (num < 0.0)
+	{
+		*f = -1;
+		res[0] = '-';
+		(*i)++;
+	}
 }
 
-char		*ft_itoa(__int128 n)
+unsigned int	ft_getdouble_len(long double value, long double *limit)
 {
-	int		i;
+	unsigned int len;
+
+	len = 2;
+	*limit = 1;
+	if (value < 0)
+		len++;
+	while (value > 10 || value < -10)
+	{
+		len++;
+		value = value / 10;
+		*limit = (*limit) * 10;
+	}
+	return (len);
+}
+
+void	*ft_memset(void *destination, int c, size_t n)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = destination;
+	while (i < n)
+	{
+		*(ptr + i) = c;
+		i++;
+	}
+	return (destination);
+}
+
+char	*ft_strnew(size_t size)
+{
 	char	*str;
 
-	i = count_ch(n);
-	str = (char *)malloc(sizeof(char) * (i));
+	str = (char *)malloc(size + 1);
 	if (!str)
 		return (NULL);
-	ft_bzero(str, i);
-	i -= 2;
-	if (!str)
-		return (NULL);
-	if (n < 0)
-		str[0] = '-';
-	if (n == 0)
-		str[0] = '0';
-	while (n)
-	{
-		if (n > 0)
-			str[i] = (n % 10) + 48;
-		else
-			str[i] = -(n % 10) + 48;
-		i--;
-		n = n / 10;
-	}
+	ft_memset(str, (int)'\0', size + 1);
 	return (str);
 }
 
-char		*ftoi(long double nbr)
+int		get_float_bit(long double num, long double limit)
 {
-	char		*str;
-	char		*tmp2;
-	int			len;
-	char*		tmp;
-	__int128	res;
+	long double	temp;
+	int			i;
 
-	res = (__int128)nbr;
-	printf("%u\n", res);
-	str = ft_itoa(res);
-	printf("***%s***\n", str);
-	if (nbr < 0)
+	temp = num / limit;
+	i = 1;
+	while (i < 10)
 	{
-		nbr *= -1;
-		res *= -1;
+		if (temp < i)
+			return (i - 1);
+		i++;
 	}
-	len = g_flags.precision >= 0 ? g_flags.precision : 6;
-	if (len)
+	return (9);
+}
+
+
+char	*ftoi(long double nbr, int *f)
+{
+	unsigned int	i;
+	int				t;
+	long double		limit;
+	unsigned int	len;
+	char			*res;
+	int 			l;
+
+	len = ft_getdouble_len(nbr, &limit);
+	l = g_flags.precision >= 0 ? (unsigned int)g_flags.precision : 6;
+	if (g_flags.precision == 0)
+		l = -1;
+	res = ft_strnew(len + l + 1);
+	float_init(nbr, &i, f, res);
+	if (g_flags.precision != 0)
+		res[len - 1] = '.';
+	while (i < len + l)
 	{
-		tmp = ft_strjoin(str, ".");
-		free(str);
-		str = ft_strdup(tmp);
-		free(tmp);
-		while(len)
-		{
-			nbr -= (long double)res;
-			nbr *= 10;
-			res = (__int128)nbr;
-			tmp = ft_itoa(res);
-			tmp2 = ft_strjoin(str, tmp);
-			free(tmp);
-			free(str);
-			str = ft_strdup(tmp2);
-			free(tmp2);
-			len--;
-		}
+		if (i == len - 1)
+			i++;
+		t = get_float_bit((*f) * nbr, limit);
+		res[i] = t + '0';
+		nbr = nbr - (*f) * limit * t;
+		limit = limit / 10;
+		i++;
 	}
-	return (str);
+	return (res);
 }
 
 void print_double(long double nbr)
@@ -172,12 +190,14 @@ void print_double(long double nbr)
 	int nbr_len;
 	int n;
 	long double f;
+	int l;
 
+	l = 1;
 	if (g_flags.precision >= 0)
 	{
 		f = 0.5;
-		i = 0;
-		while (i++ < g_flags.precision)
+		n = 0;
+		while (n++ < g_flags.precision)
 			f /= 10;
 		if (nbr > 0)
 			nbr += f;
@@ -185,8 +205,13 @@ void print_double(long double nbr)
 			nbr -= f;
 	}
 	else
-		nbr += 0.0000005;
-	str = ftoi(nbr);
+	{
+		if (nbr < 0)
+			nbr -= 0.0000005;
+		else if (nbr > 0)
+			nbr += 0.0000005;
+	}
+	str = ftoi(nbr, &l);
 	nbr_len = ft_str_len(str);
 	if (g_flags.flag[0] == '-')
 	{
@@ -239,4 +264,5 @@ void print_double(long double nbr)
 		while (str[i])
 			ft_putchar(str[i++]);
 	}
+	free(str);
 }
