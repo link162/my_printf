@@ -15,7 +15,7 @@
 int main(void)
 {
 		int x = 32;
-		int i = printf("%o\n", x);
-		int j = ft_printf("%#om\n", x);
+		int i = printf("%#10.3oo\n", x);
+		int j = ft_printf("%#10.3om\n", x);
 	printf("origin-%i\nmy    -%i\n", i, j);
 }
