@@ -3,32 +3,68 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: dhojt <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/12/11 12:22:16 by ybuhai            #+#    #+#              #
-#    Updated: 2018/12/28 09:24:05 by ybuhai           ###   ########.fr        #
+#    Created: 2018/04/25 19:05:31 by dhojt             #+#    #+#              #
+#    Updated: 2018/04/29 01:02:24 by dhojt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = printf
-FLAGS = -Wall -Wextra -Werror
-FILES = main.c ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c\
+NAME =		libftprintf.a
+LIBFT_A =	libft.a
+
+COMP =		gcc -Wall -Werror -Wextra $(PRINTF_H) $(LIBFT_H) -c -o
+
+PRINTF_H =	-I includes/
+LIBFT_H = 	-I srcs/libft/includes
+
+OBJ_DIR =	obj/
+SRC_DIR =	srcs/
+LIB_DIR =	srcs/libft/
+
+CFILE =		ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c\
 		print_char_str.c print_hex.c print_double.c print_octal.c
-OBJECT = $(FILES:.c=.o)
 
-$(NAME) : $(OBJECT)
-	@ gcc -g3 -O0 -c $(FILES)
-	@ gcc -g3 -O0 -o $(NAME) $(OBJECT)
-	@ rm -rf $(OBJECT)
+CFIND =		$(CFILE:%=$(SRC_DIR)%)
 
-all: $(NAME)
+OFILE =		$(CFILE:%.c=%.o)
+
+OBJ =		$(addprefix $(OBJ_DIR), $(OFILE))
+
+all: $(OBJ_DIR) $(NAME)
+
+$(OBJ_DIR):
+		@mkdir -p $(OBJ_DIR)
+		@echo Create: ft_printf Object directory
+
+$(NAME): $(OBJ)
+		@echo LIBFT START
+		@make -C $(LIB_DIR)
+		@echo Copying $(LIBFT_A) to root.
+		@cp $(LIB_DIR)$(LIBFT_A) .
+		@mv $(LIBFT_A) $(NAME)
+		@ar rc $(NAME) $(addprefix $(OBJ_DIR), $(OFILE))
+		@ranlib $(NAME)
+		@echo Merged: $(NAME) with $(LIBFT_A)
+		@echo FT_PRINTF COMPLETE
+
+$(OBJ): $(CFIND)
+		@$(MAKE) $(OFILE)
+
+$(OFILE):
+		@echo Create: $(@:obj/%=%)
+		@$(COMP) $(OBJ_DIR)$@ $(SRC_DIR)$(@:%.o=%.c)
 
 clean:
-	@rm -rf $(OBJECT)
+		@/bin/rm -rf $(OBJ_DIR)
+		@make -C $(LIB_DIR) clean
+		@echo Cleaned ft_printf object files
 
 fclean: clean
-	@rm -rf $(NAME)
+		@/bin/rm -f $(NAME)
+		@make -C $(LIB_DIR) fclean
+		@echo Cleaned $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY: all clean fclean clean re
+.PHONY: all clean flcean re
