@@ -1,70 +1,65 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: dhojt <marvin@42.fr>                       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/04/25 19:05:31 by dhojt             #+#    #+#              #
-#    Updated: 2018/04/29 01:02:24 by dhojt            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME		=	libftprintf.a
 
-NAME =		libftprintf.a
-LIBFT_A =	libft.a
+LIB			=	libft/
+LIB_N		=	libft.a
 
-COMP =		gcc -Wall -Werror -Wextra $(PRINTF_H) $(LIBFT_H) -c -o
+SRC_D		=	src/
+SRC			=	$(SRC_D)ft_printf.c \
+				$(SRC_D)parsing.c \
+				$(SRC_D)parsing2.c \
+				$(SRC_D)print_int.c \
+				$(SRC_D)prepare_to_print.c \
+				$(SRC_D)print_char_str.c \
+				$(SRC_D)print_hex.c \
+				$(SRC_D)print_double.c \
+				$(SRC_D)print_octal.c
 
-PRINTF_H =	-I includes/
-LIBFT_H = 	-I srcs/libft/includes
+OBJ_D		=	obj/
+OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
 
-OBJ_DIR =	obj/
-SRC_DIR =	srcs/
-LIB_DIR =	srcs/libft/
+INCLUDE		=	-I includes/
+CFLAGS		=	-Wall -Wextra -Werror
+C			=	clang
 
-CFILE =		ft_printf.c parsing.c parsing2.c print_int.c prepare_to_print.c\
-		print_char_str.c print_hex.c print_double.c print_octal.c
-
-CFIND =		$(CFILE:%=$(SRC_DIR)%)
-
-OFILE =		$(CFILE:%.c=%.o)
-
-OBJ =		$(addprefix $(OBJ_DIR), $(OFILE))
-
-all: $(OBJ_DIR) $(NAME)
-
-$(OBJ_DIR):
-		@mkdir -p $(OBJ_DIR)
-		@echo Create: ft_printf Object directory
+all: $(NAME)
 
 $(NAME): $(OBJ)
-		@echo LIBFT START
-		@make -C $(LIB_DIR)
-		@echo Copying $(LIBFT_A) to root.
-		@cp $(LIB_DIR)$(LIBFT_A) .
-		@mv $(LIBFT_A) $(NAME)
-		@ar rc $(NAME) $(addprefix $(OBJ_DIR), $(OFILE))
-		@ranlib $(NAME)
-		@echo Merged: $(NAME) with $(LIBFT_A)
-		@echo FT_PRINTF COMPLETE
+	@make -C $(LIB)
+	@cp $(LIB)$(LIB_N) $(NAME)
+	@ar -r $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@gcc -Wall -Werror -Wextra main.c libftprintf.a -I includes
 
-$(OBJ): $(CFIND)
-		@$(MAKE) $(OFILE)
+$(OBJ): | $(OBJ_D)
 
-$(OFILE):
-		@echo Create: $(@:obj/%=%)
-		@$(COMP) $(OBJ_DIR)$@ $(SRC_DIR)$(@:%.o=%.c)
+$(OBJ_D):
+	@mkdir -p $(OBJ_D)$(SRC_D)
+
+$(OBJ_D)%.o: %.c
+	@$(C) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:
-		@/bin/rm -rf $(OBJ_DIR)
-		@make -C $(LIB_DIR) clean
-		@echo Cleaned ft_printf object files
+	@make clean -C libft
+	@rm -f $(OBJ)
 
 fclean: clean
-		@/bin/rm -f $(NAME)
-		@make -C $(LIB_DIR) fclean
-		@echo Cleaned $(NAME)
+	@make fclean -C libft
+	@rm -f $(NAME)
+	@rm -rf $(OBJ_D)
 
 re: fclean all
 
-.PHONY: all clean flcean re
+mfclean:
+	@rm -rf $(OBJ_D)
+	@rm -f $(NAME)
+
+mre: mfclean all
+
+test: all
+	@$(C) -o unittest.out $(INCLUDE) $(NAME) unittest.c
+	@ echo "------------------------------------------------------------------"
+	@ ./unittest.out
+	@ echo "------------------------------------------------------------------"
+	@ rm -f unittest.out
+
+.PHONY: all clean fclean re test mfclean mre

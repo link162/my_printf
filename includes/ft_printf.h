@@ -6,13 +6,15 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/03 18:35:53 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/04 13:42:48 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stdarg.h>
+# include "../libft/libft.h"
+
 unsigned long long	g_count;
 struct
 {
