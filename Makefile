@@ -46,6 +46,7 @@ fclean: clean
 	@make fclean -C libft
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_D)
+	@rm a.out
 
 re: fclean all
 

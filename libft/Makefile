@@ -24,23 +24,23 @@ CFLAGS	=	-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 $(OBJ): | $(OBJ_D)
 
 $(OBJ_D):
-	mkdir $(OBJ_D)
+	@mkdir $(OBJ_D)
 
 $(OBJ_D)%.o: %.c
-	gcc $(CFLAGS) -o $@ -c $<
+	@gcc $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -rf $(OBJ_D)
+	@rm -f $(NAME)
+	@rm -rf $(OBJ_D)
 
 re: fclean all
 
