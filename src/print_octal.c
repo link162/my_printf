@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 19:10:07 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 19:22:28 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 21:54:16 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void		print_last_ptr(char *str, int nulls_before, int free_place)
 
 	i = 0;
 	str_len = ft_strlen(str);
-	while (free_place > 0)
-		ft_put_char(' ');
+	while ((g_flags.precision > -1 || g_flags.flag[3] != '0') &&
+			0 < free_place--)
+			ft_put_char(' ');
 	while (i < 2)
 		ft_put_char(str[i++]);
 	i = 0;
+	while (g_flags.flag[3] == '0' && free_place-- > 0)
+		ft_put_char('0');
 	while (i++ < nulls_before)
 		ft_put_char('0');
 	i = 2;
