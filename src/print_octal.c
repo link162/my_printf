@@ -1,4 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_octal.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/08 19:10:07 by ybuhai            #+#    #+#             */
+/*   Updated: 2019/01/08 19:22:28 by ybuhai           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <ft_printf.h>
+
+void		print_last_ptr(char *str, int nulls_before, int free_place)
+{
+	int			str_len;
+	int			i;
+
+	i = 0;
+	str_len = ft_strlen(str);
+	while (free_place > 0)
+		ft_put_char(' ');
+	while (i < 2)
+		ft_put_char(str[i++]);
+	i = 0;
+	while (i++ < nulls_before)
+		ft_put_char('0');
+	i = 2;
+	while (i < str_len)
+		ft_put_char(str[i++]);
+}
 
 static int	ft_octal(unsigned long long nbr, char *str)
 {
@@ -13,7 +44,8 @@ static int	ft_octal(unsigned long long nbr, char *str)
 
 static void	print_last_oct(char *str, int nulls_before, int free_place)
 {
-	while (free_place > 0 && ((g_flags.precision >= 0) || (g_flags.precision == -1 && g_flags.flag[3] != '0')))
+	while (free_place > 0 && ((g_flags.precision >= 0)
+				|| (g_flags.precision == -1 && g_flags.flag[3] != '0')))
 	{
 		ft_put_char(' ');
 		free_place--;
@@ -47,7 +79,7 @@ void		print_octal(unsigned long long nbr)
 {
 	int		int_len;
 	int		free_place_before_nbr;
-    int		nulls_before_nbr;
+	int		nulls_before_nbr;
 	char	str[25];
 
 	ft_bzero(str, 25);
@@ -56,10 +88,13 @@ void		print_octal(unsigned long long nbr)
 	free_place_before_nbr = 0;
 	nulls_before_nbr = 0;
 	if (int_len <= g_flags.precision)
-		nulls_before_nbr = g_flags.precision - int_len - (g_flags.flag[4] == '#' ? 1 : 0);
+		nulls_before_nbr = g_flags.precision - int_len -
+			(g_flags.flag[4] == '#' ? 1 : 0);
 	if (int_len <= g_flags.width || g_flags.precision < g_flags.width)
-		free_place_before_nbr = int_len >= g_flags.precision ? g_flags.width - int_len : g_flags.width - g_flags.precision;
-	if (free_place_before_nbr > 0 && g_flags.flag[4] == '#' && nbr != 0 && g_flags.precision == -1)
+		free_place_before_nbr = int_len >= g_flags.precision ?
+			g_flags.width - int_len : g_flags.width - g_flags.precision;
+	if (free_place_before_nbr > 0 && g_flags.flag[4] == '#' &&
+			nbr != 0 && g_flags.precision == -1)
 		free_place_before_nbr -= 1;
 	if (g_flags.flag[0] == '-')
 		print_first_oct(str, nulls_before_nbr, free_place_before_nbr);

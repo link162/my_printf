@@ -6,11 +6,37 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:18:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/04 16:16:23 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 19:39:17 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
+
+long double	round_off(long double nbr)
+{
+	long double		f;
+	int				n;
+
+	if (g_flags.precision >= 0)
+	{
+		f = 0.5;
+		n = 0;
+		while (n++ < g_flags.precision)
+			f /= 10;
+		if (nbr > 0)
+			nbr += f;
+		else if (nbr < 0)
+			nbr -= f;
+	}
+	else
+	{
+		if (nbr < 0)
+			nbr -= 0.0000005;
+		else if (nbr > 0)
+			nbr += 0.0000005;
+	}
+	return (nbr);
+}
 
 static void	prepare_to_print3(va_list argptr)
 {
@@ -57,7 +83,7 @@ static void	prepare_to_print2(va_list argptr)
 		prepare_to_print3(argptr);
 }
 
-void	prepare_to_print(va_list argptr)
+void		prepare_to_print(va_list argptr)
 {
 	if ((g_flags.symbol == 'i' || g_flags.symbol == 'd')
 			&& g_flags.length == 0)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_hex.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/08 19:20:07 by ybuhai            #+#    #+#             */
+/*   Updated: 2019/01/08 19:20:08 by ybuhai           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <ft_printf.h>
 
 static int	print_16(char *str, __int128 nbr)
@@ -24,7 +36,8 @@ static int	print_16(char *str, __int128 nbr)
 
 static void	print_last_hex(char *str, int nulls_before, int free_place)
 {
-	while (free_place > 0 && ((g_flags.precision >= 0) || (g_flags.precision == -1 && g_flags.flag[3] != '0')))
+	while (free_place > 0 && ((g_flags.precision >= 0)
+				|| (g_flags.precision == -1 && g_flags.flag[3] != '0')))
 	{
 		ft_put_char(' ');
 		free_place--;
@@ -80,8 +93,9 @@ void		print_hex(__int128 nbr)
 	nulls_before_nbr = 0;
 	if (g_flags.precision >= 0)
 		nulls_before_nbr = g_flags.precision - int_len;
-    if (int_len <= g_flags.width || g_flags.precision < g_flags.width)
-		free_place_before_nbr = int_len >= g_flags.precision ? g_flags.width - int_len : g_flags.width - g_flags.precision;
+	if (int_len <= g_flags.width || g_flags.precision < g_flags.width)
+		free_place_before_nbr = int_len >= g_flags.precision ?
+			g_flags.width - int_len : g_flags.width - g_flags.precision;
 	if (free_place_before_nbr > 0 && g_flags.flag[4] == '#' && nbr != 0)
 		free_place_before_nbr -= 2;
 	if (g_flags.flag[0] == '-')

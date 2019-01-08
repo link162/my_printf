@@ -28,7 +28,7 @@ $(NAME): $(OBJ)
 	@cp $(LIB)$(LIB_N) $(NAME)
 	@ar -r $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@gcc -Wall -Werror -Wextra main.c libftprintf.a -I includes
+	@gcc main.c libftprintf.a -I includes
 	@echo "$(NAME) create"
 
 $(OBJ): | $(OBJ_D)

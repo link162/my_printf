@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/04 13:53:18 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 20:22:48 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,21 @@ int			ft_printf(const char *format, ...)
 	}
 	va_end(argptr);
 	return (g_count);
+}
+
+int			ft_getdouble_len(long double value, long double *limit)
+{
+	unsigned int	len;
+
+	len = 2;
+	*limit = 1;
+	if (value < 0)
+		len++;
+	while (value > 10 || value < -10)
+	{
+		len++;
+		value = value / 10;
+		*limit = (*limit) * 10;
+	}
+	return (len);
 }

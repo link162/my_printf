@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/04 13:53:57 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 19:38:44 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,20 @@ int		check_width(const char *str)
 		i = intlen(g_flags.width);
 	}
 	return (i);
+}
+
+int		get_float_bit(long double num, long double limit)
+{
+	long double		temp;
+	int				i;
+
+	temp = num / limit;
+	i = 1;
+	while (i < 10)
+	{
+		if (temp < i)
+			return (i - 1);
+		i++;
+	}
+	return (9);
 }

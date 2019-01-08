@@ -6,46 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 17:17:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2018/12/28 17:22:32 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 19:38:12 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-static unsigned int	ft_getdouble_len(long double value, long double *limit)
-{
-	unsigned int	len;
-
-	len = 2;
-	*limit = 1;
-	if (value < 0)
-		len++;
-	while (value > 10 || value < -10)
-	{
-		len++;
-		value = value / 10;
-		*limit = (*limit) * 10;
-	}
-	return (len);
-}
-
-static int			get_float_bit(long double num, long double limit)
-{
-	long double		temp;
-	int				i;
-
-	temp = num / limit;
-	i = 1;
-	while (i < 10)
-	{
-		if (temp < i)
-			return (i - 1);
-		i++;
-	}
-	return (9);
-}
-	
-void				helper(char *res, long double nbr, int len, long double limit)
+void				helper(char *res, long double nbr, int len, long double li)
 {
 	int				i;
 	int				t;
@@ -53,9 +20,8 @@ void				helper(char *res, long double nbr, int len, long double limit)
 	int				f;
 
 	f = 1;
+	l = -1;
 	l = g_flags.precision >= 0 ? (unsigned int)g_flags.precision : 6;
-	if (g_flags.precision == 0)
-		l = -1;
 	i = 0;
 	if (nbr < 0.0)
 	{
@@ -67,10 +33,10 @@ void				helper(char *res, long double nbr, int len, long double limit)
 	{
 		if (i == len - 1)
 			i++;
-		t = get_float_bit(f * nbr, limit);
+		t = get_float_bit(f * nbr, li);
 		res[i] = t + '0';
-		nbr = nbr - f * limit * t;
-		limit = limit / 10;
+		nbr = nbr - f * li * t;
+		li = li / 10;
 		i++;
 	}
 }
@@ -81,6 +47,7 @@ static char			*ftoi(long double nbr)
 	long double		limit;
 	char			*res;
 	int				l;
+
 	l = g_flags.precision >= 0 ? (unsigned int)g_flags.precision : 6;
 	if (g_flags.precision == 0)
 		l = -1;
@@ -90,32 +57,6 @@ static char			*ftoi(long double nbr)
 		res[len - 1] = '.';
 	helper(res, nbr, len, limit);
 	return (res);
-}
-
-static long double	round_off(long double nbr)
-{
-	long double		f;
-	int				n;
-
-	if (g_flags.precision >= 0)
-	{
-		f = 0.5;
-		n = 0;
-		while (n++ < g_flags.precision)
-			f /= 10;
-		if (nbr > 0)
-			nbr += f;
-		else if (nbr < 0)
-			nbr -= f;
-	}
-	else
-	{
-		if (nbr < 0)
-			nbr -= 0.0000005;
-		else if (nbr > 0)
-			nbr += 0.0000005;
-	}
-	return (nbr);
 }
 
 static void			print_first_double(long double nbr, char *str, int nbr_len)
@@ -140,7 +81,7 @@ static void			print_first_double(long double nbr, char *str, int nbr_len)
 		ft_put_char(' ');
 }
 
-static void			print_last_double(long double nbr, char *str, int nbr_len, int i)
+static void			print_last_d(long double nbr, char *str, int len, int i)
 {
 	if (g_flags.flag[3] == '0' && nbr >= 0)
 	{
@@ -149,7 +90,7 @@ static void			print_last_double(long double nbr, char *str, int nbr_len, int i)
 		else if (g_flags.flag[2] == ' ')
 			ft_put_char(' ');
 	}
-	while (g_flags.width - nbr_len > 0)
+	while (g_flags.width - len > 0)
 	{
 		if (g_flags.flag[3] == '0')
 			ft_put_char('0');
@@ -186,7 +127,7 @@ void				print_double(long double nbr)
 	{
 		if (str[i] == '-' && g_flags.flag[3] == '0')
 			ft_put_char(str[i++]);
-		print_last_double(nbr, str, nbr_len, i);
+		print_last_d(nbr, str, nbr_len, i);
 	}
 	free(str);
 }

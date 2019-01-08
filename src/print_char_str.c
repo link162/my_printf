@@ -6,62 +6,20 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 12:04:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/04 16:18:22 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 20:32:35 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-void		print_last_ptr(char *str, int nulls_before, int free_place)
+void			print_null(void)
 {
-	int			str_len;
-	int			i;
-
-	i = 0;
-	str_len = ft_strlen(str);
-	while (free_place > 0)
-		ft_put_char(' ');
-	while (i < 2)
-		ft_put_char(str[i++]);
-	i = 0;
-	while (i++ < nulls_before)
-		ft_put_char('0');
-	i = 2;
-	while (i < str_len)
-		ft_put_char(str[i++]);
-
-}
-
-void		print_first_ptr(char *str, int nulls_before, int free_place)
-{
-	int			str_len;
-	int			i;
-
-	str_len = ft_strlen(str);
-	i = 0;
-	while (i < 2)
-		ft_put_char(str[i++]);
-	i = 0;
-	while (i++ < nulls_before)
-		ft_put_char('0');
-	i = 2;
-	while (i < str_len)
-		ft_put_char(str[i++]);
-	while (free_place--)
-		ft_put_char(' ');
-}
-
-void		print_null(void)
-{
-	char		*str;
-	int			i;
-	
-	i = 0;
-	str = malloc(sizeof(char) * 7);
-	str = "(null)";
-	while (str[i])
-		ft_put_char(str[i++]);
-	free(str);
+	ft_put_char('(');
+	ft_put_char('n');
+	ft_put_char('u');
+	ft_put_char('l');
+	ft_put_char('l');
+	ft_put_char(')');
 }
 
 void			print_ptr(char *str)
@@ -76,6 +34,7 @@ void			print_ptr(char *str)
 		return ;
 	}
 	free_place = 0;
+	nulls_before = 0;
 	str_len = ft_strlen(str);
 	if (g_flags.precision > str_len - 2)
 		nulls_before = g_flags.precision - str_len + 2;
@@ -111,7 +70,7 @@ void			print_char(int nbr)
 	}
 }
 
-void		print_first_last(char *str, int lenght, int free_place)
+void			print_first_last(char *str, int lenght, int free_place)
 {
 	int			i;
 

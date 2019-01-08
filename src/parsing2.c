@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:13:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/04 13:56:04 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 19:38:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,25 @@ int			check_length(const char *str)
 	else if (g_flags.length == 2 || g_flags.length == 4)
 		return (2);
 	return (0);
+}
+
+void		print_first_ptr(char *str, int nulls_before, int free_place)
+{
+	int			str_len;
+	int			i;
+
+	str_len = ft_strlen(str);
+	i = 0;
+	while (i < 2)
+		ft_put_char(str[i++]);
+	i = 0;
+	while (i++ < nulls_before)
+		ft_put_char('0');
+	i = 2;
+	while (i < str_len)
+		ft_put_char(str[i++]);
+	while (free_place--)
+		ft_put_char(' ');
 }
 
 int			check_symbol(char c)
