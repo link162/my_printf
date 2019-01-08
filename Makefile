@@ -19,7 +19,7 @@ OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
 
 INCLUDE		=	-I includes/
 CFLAGS		=	-Wall -Wextra -Werror
-C			=	clang
+C			=	gcc
 
 all: $(NAME)
 
@@ -29,6 +29,7 @@ $(NAME): $(OBJ)
 	@ar -r $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@gcc -Wall -Werror -Wextra main.c libftprintf.a -I includes
+	@echo "$(NAME) create"
 
 $(OBJ): | $(OBJ_D)
 
@@ -41,26 +42,14 @@ $(OBJ_D)%.o: %.c
 clean:
 	@make clean -C libft
 	@rm -f $(OBJ)
+	@echo "object files was deleted"
 
 fclean: clean
 	@make fclean -C libft
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_D)
-	@rm a.out
+	@rm -rf a.out
 
 re: fclean all
 
-mfclean:
-	@rm -rf $(OBJ_D)
-	@rm -f $(NAME)
-
-mre: mfclean all
-
-test: all
-	@$(C) -o unittest.out $(INCLUDE) $(NAME) unittest.c
-	@ echo "------------------------------------------------------------------"
-	@ ./unittest.out
-	@ echo "------------------------------------------------------------------"
-	@ rm -f unittest.out
-
-.PHONY: all clean fclean re test mfclean mre
+.PHONY: all clean fclean re

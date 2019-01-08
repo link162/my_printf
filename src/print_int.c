@@ -13,7 +13,7 @@ static void	ft_put_nbr(__int128 x)
 
 static void	print_first_nbr(__int128 nbr, int nulls_before, int free_place)
 {
-	int i;
+	int		i;
 
 	if (g_flags.flag[1] == '+' && nbr >= 0)
 	{
@@ -41,7 +41,7 @@ static void	print_first_nbr(__int128 nbr, int nulls_before, int free_place)
 
 static void	print_last_nbr(__int128 nbr, int nulls_before, int free_place)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr >= 0)
@@ -66,11 +66,11 @@ static void	print_last_nbr(__int128 nbr, int nulls_before, int free_place)
 	ft_put_nbr(nbr);
 }
 
-void	print_int(__int128 nbr)
+void		print_int(__int128 nbr)
 {
-	int int_len;
-	int nulls_before_nbr;
-	int	free_place_before_nbr;
+	int		int_len;
+	int		nulls_before_nbr;
+	int		free_place_before_nbr;
 
 	free_place_before_nbr = 0;
 	nulls_before_nbr = 0;

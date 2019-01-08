@@ -2,7 +2,7 @@
 
 static int	ft_octal(unsigned long long nbr, char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (nbr >= 8)
@@ -43,12 +43,12 @@ static void	print_first_oct(char *str, int nulls_before, int free_place)
 		ft_put_char(' ');
 }
 
-void	print_octal(unsigned long long nbr)
+void		print_octal(unsigned long long nbr)
 {
-	int int_len;
-	int free_place_before_nbr;
-    int nulls_before_nbr;
-	char str[25];
+	int		int_len;
+	int		free_place_before_nbr;
+    int		nulls_before_nbr;
+	char	str[25];
 
 	ft_bzero(str, 25);
 	ft_octal(nbr, str);

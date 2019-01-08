@@ -2,7 +2,7 @@
 
 static int	print_16(char *str, __int128 nbr)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (nbr >= 16)
@@ -66,12 +66,12 @@ static void	print_first_hex(char *str, int nulls_before, int free_place)
 		ft_put_char(' ');
 }
 
-void	print_hex(__int128 nbr)
+void		print_hex(__int128 nbr)
 {
-	char str[25];
-	int int_len;
-	int free_place_before_nbr;
-	int nulls_before_nbr;
+	char	str[25];
+	int		int_len;
+	int		free_place_before_nbr;
+	int		nulls_before_nbr;
 
 	ft_bzero(str, 25);
 	print_16(str, nbr);

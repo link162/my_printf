@@ -12,20 +12,9 @@
 
 #include <ft_printf.h>
 
-static void	float_init(long double num, unsigned int *i, int *f, char *res)
-{
-	*i = 0;
-	if (num < 0.0)
-	{
-		*f = -1;
-		res[0] = '-';
-		(*i)++;
-	}
-}
-
 static unsigned int	ft_getdouble_len(long double value, long double *limit)
 {
-	unsigned int len;
+	unsigned int	len;
 
 	len = 2;
 	*limit = 1;
@@ -40,10 +29,10 @@ static unsigned int	ft_getdouble_len(long double value, long double *limit)
 	return (len);
 }
 
-static int		get_float_bit(long double num, long double limit)
+static int			get_float_bit(long double num, long double limit)
 {
-	long double	temp;
-	int			i;
+	long double		temp;
+	int				i;
 
 	temp = num / limit;
 	i = 1;
@@ -55,48 +44,59 @@ static int		get_float_bit(long double num, long double limit)
 	}
 	return (9);
 }
-
-
-static char	*ftoi(long double nbr, int *f)
+	
+void				helper(char *res, long double nbr, int len, long double limit)
 {
-	unsigned int	i;
+	int				i;
 	int				t;
-	long double		limit;
-	unsigned int	len;
-	char			*res;
-	int 			l;
+	int				l;
+	int				f;
 
-	len = ft_getdouble_len(nbr, &limit);
+	f = 1;
 	l = g_flags.precision >= 0 ? (unsigned int)g_flags.precision : 6;
 	if (g_flags.precision == 0)
 		l = -1;
-	res = ft_strnew(len + l + 1);
-	float_init(nbr, &i, f, res);
-	if (g_flags.precision != 0)
-		res[len - 1] = '.';
+	i = 0;
+	if (nbr < 0.0)
+	{
+		f = -1;
+		res[0] = '-';
+		i++;
+	}
 	while (i < len + l)
 	{
 		if (i == len - 1)
 			i++;
-		t = get_float_bit((*f) * nbr, limit);
+		t = get_float_bit(f * nbr, limit);
 		res[i] = t + '0';
-		nbr = nbr - (*f) * limit * t;
+		nbr = nbr - f * limit * t;
 		limit = limit / 10;
 		i++;
 	}
+}
+
+static char			*ftoi(long double nbr)
+{
+	int				len;
+	long double		limit;
+	char			*res;
+	int				l;
+	l = g_flags.precision >= 0 ? (unsigned int)g_flags.precision : 6;
+	if (g_flags.precision == 0)
+		l = -1;
+	len = ft_getdouble_len(nbr, &limit);
+	res = ft_strnew(len + l + 1);
+	if (g_flags.precision != 0)
+		res[len - 1] = '.';
+	helper(res, nbr, len, limit);
 	return (res);
 }
 
-void print_double(long double nbr)
+static long double	round_off(long double nbr)
 {
-	char *str;
-	int i;
-	int nbr_len;
-	int n;
-	long double f;
-	int l;
+	long double		f;
+	int				n;
 
-	l = 1;
 	if (g_flags.precision >= 0)
 	{
 		f = 0.5;
@@ -115,58 +115,78 @@ void print_double(long double nbr)
 		else if (nbr > 0)
 			nbr += 0.0000005;
 	}
-	str = ftoi(nbr, &l);
-	nbr_len = ft_strlen(str);
-	if (g_flags.flag[0] == '-')
+	return (nbr);
+}
+
+static void			print_first_double(long double nbr, char *str, int nbr_len)
+{
+	int				i;
+
+	i = 0;
+	if (nbr >= 0 && g_flags.flag[1] == '+')
 	{
-		i = 0;
-		if (nbr >= 0 && g_flags.flag[1] == '+')
-		{
+		ft_put_char('+');
+		g_flags.width--;
+	}
+	else if (nbr >= 0 && g_flags.flag[2] == ' ')
+	{
+		ft_put_char(' ');
+		g_flags.width--;
+	}
+	while (str[i])
+		ft_put_char(str[i++]);
+	i = g_flags.width - nbr_len;
+	while (i-- > 0)
+		ft_put_char(' ');
+}
+
+static void			print_last_double(long double nbr, char *str, int nbr_len, int i)
+{
+	if (g_flags.flag[3] == '0' && nbr >= 0)
+	{
+		if (g_flags.flag[1] == '+')
 			ft_put_char('+');
-			g_flags.width--;
-		}
-		else if (nbr >=0 && g_flags.flag[2] == ' ')
-		{
-			ft_put_char(' ');
-			g_flags.width--;
-		}
-		while (str[i])
-			ft_put_char(str[i++]);
-		i = g_flags.width - nbr_len;
-		while (i-- > 0)
+		else if (g_flags.flag[2] == ' ')
 			ft_put_char(' ');
 	}
+	while (g_flags.width - nbr_len > 0)
+	{
+		if (g_flags.flag[3] == '0')
+			ft_put_char('0');
+		else
+			ft_put_char(' ');
+		g_flags.width--;
+	}
+	if (g_flags.flag[3] != '0' && nbr >= 0)
+	{
+		if (g_flags.flag[1] == '+')
+			ft_put_char('+');
+		else if (g_flags.flag[2] == ' ')
+			ft_put_char(' ');
+	}
+	while (str[i])
+		ft_put_char(str[i++]);
+}
+
+void				print_double(long double nbr)
+{
+	char			*str;
+	int				nbr_len;
+	int				i;
+
+	i = 0;
+	nbr = round_off(nbr);
+	str = ftoi(nbr);
+	nbr_len = ft_strlen(str);
+	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr >= 0)
+		g_flags.width--;
+	if (g_flags.flag[0] == '-')
+		print_first_double(nbr, str, nbr_len);
 	else
 	{
-		i = 0;
 		if (str[i] == '-' && g_flags.flag[3] == '0')
 			ft_put_char(str[i++]);
-		if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr >= 0)
-			g_flags.width--;
-		n = g_flags.width - nbr_len;
-		if (g_flags.flag[3] == '0' && nbr >= 0)
-		{
-			if (g_flags.flag[1] == '+')
-				ft_put_char('+');
-			else if (g_flags.flag[2] == ' ')
-				ft_put_char(' ');
-		}
-		while (n-- > 0)
-		{
-			if (g_flags.flag[3] == '0')
-				ft_put_char('0');
-			else
-				ft_put_char(' ');
-		}
-		if (g_flags.flag[3] != '0' && nbr >= 0)
-		{
-			if (g_flags.flag[1] == '+')
-				ft_put_char('+');
-			else if (g_flags.flag[2] == ' ')
-				ft_put_char(' ');
-		}
-		while (str[i])
-			ft_put_char(str[i++]);
+		print_last_double(nbr, str, nbr_len, i);
 	}
 	free(str);
 }

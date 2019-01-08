@@ -3,5 +3,10 @@
 
 int main(void)
 {
-	ft_printf("hello\n");
+	int o;
+	int m;
+	double x = 42.1113;
+	o = printf("%20.4fo\n", x);
+	m = ft_printf("%20.4fm\n", x);
+	printf("origin = %i\nmy     = %i\n", o, m);
 }

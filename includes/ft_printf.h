@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "../libft/libft.h"
-
+#include <stdio.h>
 unsigned long long	g_count;
 struct
 {
