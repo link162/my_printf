@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 19:38:44 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/08 22:07:13 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	struct_to_nul(void)
 	g_flags.symbol = 0;
 	g_flags.precision = -1;
 	g_flags.length = 0;
-	g_count = 0;
 }
 
 int		intlen(__int128 n)
