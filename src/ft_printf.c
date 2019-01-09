@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 20:50:53 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 12:14:46 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ int			ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-		{
-			if (format[i + 1] == '%')
-				ft_put_char(format[i++]);
-			else
-				i += check_specified(&format[i], argptr);
-		}
+			i += check_specified(&format[i], argptr);
 		else
 			ft_put_char(format[i]);
 		i++;

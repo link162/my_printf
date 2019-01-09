@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:13:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 19:38:32 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 11:48:41 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		print_first_ptr(char *str, int nulls_before, int free_place)
 int			check_symbol(char c)
 {
 	if (c == 'd' || c == 'i' || c == 's' || c == 'c' || c == 'f' || c == 'u' ||
-			c == 'o' || c == 'x' || c == 'X' || c == 'p')
+			c == 'o' || c == 'x' || c == 'X' || c == 'p' || c == '%')
 		g_flags.symbol = c;
 	else
 		return (0);

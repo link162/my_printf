@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 19:20:07 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 19:20:08 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 13:55:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static int	print_16(char *str, __int128 nbr)
 
 static void	print_last_hex(char *str, int nulls_before, int free_place)
 {
-	while (free_place > 0 && ((g_flags.precision >= 0)
-				|| (g_flags.precision == -1 && g_flags.flag[3] != '0')))
+	if (g_flags.precision == 0 && str[0] == '0')
 	{
-		ft_put_char(' ');
-		free_place--;
+		if (g_flags.width >= 0)
+			ft_put_char(' ');
+		return ;
 	}
 	if (g_flags.flag[4] == '#' && str[0] != '0')
 	{
@@ -79,27 +79,31 @@ static void	print_first_hex(char *str, int nulls_before, int free_place)
 		ft_put_char(' ');
 }
 
-void		print_hex(__int128 nbr)
+void		print_hex(__int128 nbr, int f)
 {
 	char	str[25];
-	int		int_len;
-	int		free_place_before_nbr;
-	int		nulls_before_nbr;
+	int		i;
+	int		n;
 
 	ft_bzero(str, 25);
 	print_16(str, nbr);
-	int_len = ft_strlen(str);
-	free_place_before_nbr = 0;
-	nulls_before_nbr = 0;
-	if (g_flags.precision >= 0)
-		nulls_before_nbr = g_flags.precision - int_len;
-	if (int_len <= g_flags.width || g_flags.precision < g_flags.width)
-		free_place_before_nbr = int_len >= g_flags.precision ?
-			g_flags.width - int_len : g_flags.width - g_flags.precision;
-	if (free_place_before_nbr > 0 && g_flags.flag[4] == '#' && nbr != 0)
-		free_place_before_nbr -= 2;
+	i = ft_strlen(str);
+	n = g_flags.precision >= 0 ? g_flags.precision - i : 0;
+	if (i <= g_flags.width || g_flags.precision < g_flags.width)
+		f = i >= g_flags.precision ? g_flags.width - i :
+			g_flags.width - g_flags.precision;
+	if (f > 0 && g_flags.flag[4] == '#' && nbr != 0)
+		f -= 2;
 	if (g_flags.flag[0] == '-')
-		print_first_hex(str, nulls_before_nbr, free_place_before_nbr);
+		print_first_hex(str, n, f);
 	else
-		print_last_hex(str, nulls_before_nbr, free_place_before_nbr);
+	{
+		while (f > 0 && ((g_flags.precision >= 0)
+					|| (g_flags.precision == -1 && g_flags.flag[3] != '0')))
+		{
+			ft_put_char(' ');
+			f--;
+		}
+		print_last_hex(str, n, f);
+	}
 }

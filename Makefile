@@ -28,8 +28,6 @@ $(NAME): $(OBJ)
 	@cp $(LIB)$(LIB_N) $(NAME)
 	@ar -r $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@gcc main.c libftprintf.a -I includes
-	@echo "$(NAME) create"
 
 $(OBJ): | $(OBJ_D)
 
@@ -42,7 +40,6 @@ $(OBJ_D)%.o: %.c
 clean:
 	@make clean -C libft
 	@rm -f $(OBJ)
-	@echo "object files was deleted"
 
 fclean: clean
 	@make fclean -C libft
@@ -51,5 +48,9 @@ fclean: clean
 	@rm -rf a.out
 
 re: fclean all
+
+test:
+	@rm -rf a.out
+	@gcc main.c libftprintf.a -I includes
 
 .PHONY: all clean fclean re

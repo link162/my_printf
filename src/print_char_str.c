@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 12:04:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 20:56:39 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 11:54:44 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ void			print_char(int nbr)
 	else
 	{
 		while (i++ < free_place)
-			ft_put_char(' ');
+		{
+			if (g_flags.flag[3] == '0')
+				ft_put_char('0');
+			else
+				ft_put_char(' ');
+		}
 		ft_put_char(nbr);
 	}
 }

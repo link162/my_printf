@@ -5,7 +5,7 @@ int main(void)
 	int o;
 	int m;
 
-	o = printf("%s %s %s %s string. gg!\n", "this", "is", "a", "multi", "string");
-	m = ft_printf("%s %s %s %s string. gg!\n", "this", "is", "a", "multi", "string");
+	o = printf("%hh+do\n", 42);	
+	m = ft_printf("%hh+dm\n", 42);
 	printf("origin = %i\nmy     = %i\n", o, m);
 }

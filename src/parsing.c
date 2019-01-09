@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 22:07:13 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 12:28:17 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int		check_precision(const char *str)
 	if (str[i] == '.')
 	{
 		if (str[1] < '0' || str[1] > '9')
-			return (-1);
+		{
+			g_flags.precision = 0;
+			return (1);
+		}
 		g_flags.precision = ft_atoi(&str[1]);
 		i = intlen(g_flags.precision) + 1;
 	}

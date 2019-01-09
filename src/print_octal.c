@@ -6,26 +6,25 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 19:10:07 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 21:54:16 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 13:57:14 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-void		print_last_ptr(char *str, int nulls_before, int free_place)
+void		print_last_ptr(char *str, int nulls_before, int f)
 {
 	int			str_len;
 	int			i;
 
 	i = 0;
 	str_len = ft_strlen(str);
-	while ((g_flags.precision > -1 || g_flags.flag[3] != '0') &&
-			0 < free_place--)
-			ft_put_char(' ');
+	while ((g_flags.precision > -1 || g_flags.flag[3] != '0') && 0 < f--)
+		ft_put_char(' ');
 	while (i < 2)
 		ft_put_char(str[i++]);
 	i = 0;
-	while (g_flags.flag[3] == '0' && free_place-- > 0)
+	while (g_flags.flag[3] == '0' && f-- > 0)
 		ft_put_char('0');
 	while (i++ < nulls_before)
 		ft_put_char('0');
@@ -53,8 +52,15 @@ static void	print_last_oct(char *str, int nulls_before, int free_place)
 		ft_put_char(' ');
 		free_place--;
 	}
-	if (g_flags.flag[4] == '#' && str[0] != '0')
+	if (g_flags.flag[4] == '#' && (str[0] != '0' ||
+				(str[0] == '0' && g_flags.precision == 0)))
 		ft_put_char('0');
+	if (g_flags.precision == 0 && str[0] == '0')
+	{
+		if (g_flags.width >= 0)
+			ft_put_char(' ');
+		return ;
+	}
 	while (free_place > 0 && g_flags.flag[3] == '0')
 	{
 		ft_put_char('0');

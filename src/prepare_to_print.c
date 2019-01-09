@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:18:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 19:39:17 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/09 13:56:06 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ static void	prepare_to_print2(va_list argptr)
 		print_address_hex(va_arg(argptr, void *));
 	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X')
 			&& g_flags.length == 0)
-		print_hex(va_arg(argptr, unsigned int));
+		print_hex(va_arg(argptr, unsigned int), 0);
 	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X')
 			&& g_flags.length == 1)
-		print_hex((unsigned short)va_arg(argptr, int));
+		print_hex((unsigned short)va_arg(argptr, int), 0);
 	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X')
 			&& g_flags.length == 2)
-		print_hex((unsigned char)va_arg(argptr, int));
+		print_hex((unsigned char)va_arg(argptr, int), 0);
 	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X')
 			&& g_flags.length == 3)
-		print_hex(va_arg(argptr, unsigned long));
+		print_hex(va_arg(argptr, unsigned long), 0);
 	else if ((g_flags.symbol == 'x' || g_flags.symbol == 'X')
 			&& g_flags.length == 4)
-		print_hex(va_arg(argptr, unsigned long long));
+		print_hex(va_arg(argptr, unsigned long long), 0);
 	else if (g_flags.symbol == 'o' && g_flags.length == 0)
 		print_octal(va_arg(argptr, unsigned int));
 	else if (g_flags.symbol == 'o' && g_flags.length == 1)
@@ -102,6 +102,8 @@ void		prepare_to_print(va_list argptr)
 		print_int(va_arg(argptr, long long int));
 	else if (g_flags.symbol == 'c')
 		print_char((char)va_arg(argptr, int));
+	else if (g_flags.symbol == '%')
+		print_char('%');
 	else if (g_flags.symbol == 's')
 		print_str(va_arg(argptr, char *));
 	else
