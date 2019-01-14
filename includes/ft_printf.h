@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 13:57:45 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/14 16:17:18 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int					ft_printf(const char *format, ...);
 void				ft_put_char(int c);
 int					intlen(__int128 n);
 int					check_width(const char *str);
-int					check_length(const char *str);
+int					check_length(const char *str, int *i);
 int					check_symbol(char c);
 int					check_precision(const char *str);
 void				prepare_to_print(va_list argptr);
@@ -39,6 +39,7 @@ void				print_str(char *str);
 void				print_int(__int128 nbr);
 void				struct_to_nul(void);
 void				print_address_hex(void *p0);
+void				fill_str(char *str);
 void				print_ptr(char *str);
 void				print_hex(__int128 nbr, int f);
 void				print_double(long double nbr);

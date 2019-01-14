@@ -6,11 +6,19 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:18:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 13:56:06 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/14 12:08:07 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
+
+void		fill_str(char *str)
+{
+	ft_bzero(str, 255);
+	str[0] = '0';
+	str[1] = 'x';
+	str[2] = '0';
+}
 
 long double	round_off(long double nbr)
 {

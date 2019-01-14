@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/14 12:35:12 by ybuhai            #+#    #+#             */
+/*   Updated: 2019/01/14 16:07:25 by ybuhai           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int main(void)
@@ -5,7 +17,7 @@ int main(void)
 	int o;
 	int m;
 
-	o = printf("%hh+do\n", 42);	
-	m = ft_printf("%hh+dm\n", 42);
+	o = printf("%llllllllld\n", 128);
+	m = ft_printf("%llllllllld\n", 128);
 	printf("origin = %i\nmy     = %i\n", o, m);
 }

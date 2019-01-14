@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 19:17:21 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/08 19:18:30 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/14 14:12:18 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static void	ft_put_nbr(__int128 x)
 {
+	if (x < 0)
+	{
+		ft_put_char('-');
+		x *= -1;
+	}
 	if (x > 9)
 	{
 		ft_put_nbr(x / 10);
@@ -51,28 +56,32 @@ static void	print_first_nbr(__int128 nbr, int nulls_before, int free_place)
 		ft_put_char(' ');
 }
 
-static void	print_last_nbr(__int128 nbr, int nulls_before, int free_place)
+static void	print_last_nbr(__int128 nbr, int nulls_before, int free_place, int i)
 {
-	int		i;
-
-	i = 0;
 	if ((g_flags.flag[1] == '+' || g_flags.flag[2] == ' ') && nbr >= 0)
 		free_place--;
+	if (g_flags.flag[1] == '+' && nbr >= 0 && g_flags.flag[3] == '0' && g_flags.symbol != 'u')
+		ft_put_char('+');
+	else if (g_flags.flag[2] == ' ' && nbr >= 0 && g_flags.flag[1] != '+' && g_flags.symbol != 'u')
+		ft_put_char(' ');
+	else if (nbr < 0 && nulls_before >= 0 && g_flags.flag[3] == '0')
+	{
+		ft_put_char('-');
+		nbr *= -1;
+	}
 	while (i++ < free_place)
 		if (g_flags.flag[3] == '0')
 			ft_put_char('0');
 		else
 			ft_put_char(' ');
-	if (g_flags.flag[1] == '+' && nbr >= 0)
+	i = 0;
+	if (nbr >= 0 && g_flags.flag[1] == '+' && g_flags.flag[3] != '0' && g_flags.symbol != 'u')
 		ft_put_char('+');
-	else if (g_flags.flag[2] == ' ' && nbr >= 0)
-		ft_put_char(' ');
-	else if (nbr < 0)
+	if (nbr < 0)
 	{
 		ft_put_char('-');
 		nbr *= -1;
 	}
-	i = 0;
 	while (i++ < nulls_before)
 		ft_put_char('0');
 	ft_put_nbr(nbr);
@@ -87,6 +96,12 @@ void		print_int(__int128 nbr)
 	free_place_before_nbr = 0;
 	nulls_before_nbr = 0;
 	int_len = intlen(nbr);
+	if (nbr == 0 && g_flags.precision == 0)
+	{
+		while (g_flags.width-- > 0)
+			ft_put_char(' ');
+		return ;
+	}
 	if (nbr < 0)
 		int_len--;
 	if (g_flags.precision >= 0)
@@ -99,5 +114,5 @@ void		print_int(__int128 nbr)
 	if (g_flags.flag[0] == '-')
 		print_first_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
 	else
-		print_last_nbr(nbr, nulls_before_nbr, free_place_before_nbr);
+		print_last_nbr(nbr, nulls_before_nbr, free_place_before_nbr, 0);
 }

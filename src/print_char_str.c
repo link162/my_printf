@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 12:04:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 11:54:44 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/14 15:16:46 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,12 @@ void			print_first_last(char *str, int lenght, int free_place)
 	else
 	{
 		while (free_place-- > 0)
-			ft_put_char(' ');
+		{
+			if (g_flags.flag[3] == '0')
+				ft_put_char('0');
+			else
+				ft_put_char(' ');
+		}
 		while (i < lenght)
 			ft_put_char(str[i++]);
 	}

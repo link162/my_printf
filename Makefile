@@ -35,7 +35,7 @@ $(OBJ_D):
 	@mkdir -p $(OBJ_D)$(SRC_D)
 
 $(OBJ_D)%.o: %.c
-	@$(C) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	@$(C) $(CFLAGS) -g3 $(INCLUDE) -o $@ -c -g3 $<
 
 clean:
 	@make clean -C libft

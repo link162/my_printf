@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 12:14:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/14 16:17:46 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ static int	check_specified(const char *str, va_list argptr)
 	i = 1;
 	while (check_flags(str[i]))
 		i++;
+	if (!str[i])
+		return (i - 1);
 	i += check_width(&str[i]);
 	i += check_precision(&str[i]);
-	i += check_length(&str[i]);
+	while (check_length(&str[i], &i))
+		i++;
+	while (check_flags(str[i]))
+		i++;
 	if (!(check_symbol(str[i])))
-		return (0);
+		return (i - 1);
 	prepare_to_print(argptr);
 	return (i);
 }

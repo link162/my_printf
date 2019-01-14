@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:13:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 11:48:41 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/14 16:16:58 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,26 @@ void		print_address_hex(void *p0)
 
 	counter = 1;
 	p = (intptr_t)p0;
-	ft_bzero(str, 255);
-	str[0] = '0';
-	str[1] = 'x';
-	i = (sizeof(p) << 3) - 4;
-	while (i >= 0)
+	fill_str(str);
+	if (p != 0)
 	{
-		if (counter == 1)
+		i = (sizeof(p) << 3) - 4;
+		while (i >= 0)
 		{
-			while (hex_digit((p >> i) & 0xf) == '0')
-				i -= 4;
-			counter = 2;
+			if (counter == 1)
+			{
+				while (hex_digit((p >> i) & 0xf) == '0')
+					i -= 4;
+				counter = 2;
+			}
+			str[counter++] = hex_digit((p >> i) & 0xf);
+			i -= 4;
 		}
-		str[counter++] = hex_digit((p >> i) & 0xf);
-		i -= 4;
 	}
 	print_ptr(str);
 }
 
-int			check_length(const char *str)
+int			check_length(const char *str, int *i)
 {
 	if (str[0] == 'h')
 	{
@@ -65,11 +66,11 @@ int			check_length(const char *str)
 	}
 	else if (str[0] == 'L')
 		g_flags.length = 5;
-	if (g_flags.length == 1 || g_flags.length == 3 || g_flags.length == 5)
-		return (1);
-	else if (g_flags.length == 2 || g_flags.length == 4)
-		return (2);
-	return (0);
+	else
+		return (0);
+	if (g_flags.length == 2 || g_flags.length == 4)
+		(*i)++;
+	return (1);
 }
 
 void		print_first_ptr(char *str, int nulls_before, int free_place)
