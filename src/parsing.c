@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:52:41 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 12:28:17 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/15 15:38:55 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		intlen(__int128 n)
 int		check_precision(const char *str)
 {
 	int i;
+	int tmp;
 
 	i = 0;
 	if (str[i] == '.')
@@ -49,7 +50,10 @@ int		check_precision(const char *str)
 			g_flags.precision = 0;
 			return (1);
 		}
-		g_flags.precision = ft_atoi(&str[1]);
+		tmp = ft_a_toi(&str[1]);
+		if (tmp == -2147483648)
+			return (-1);
+		g_flags.precision = tmp;
 		i = intlen(g_flags.precision) + 1;
 	}
 	return (i);
@@ -58,11 +62,15 @@ int		check_precision(const char *str)
 int		check_width(const char *str)
 {
 	int i;
+	int tmp;
 
 	i = 0;
 	if (str[i] >= '1' && str[i] <= '9')
 	{
-		g_flags.width = ft_atoi(str);
+		tmp = ft_a_toi(str);
+		if (tmp == -2147483648)
+			return (-1);
+		g_flags.width = tmp;
 		i = intlen(g_flags.width);
 	}
 	return (i);

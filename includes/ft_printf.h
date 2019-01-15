@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/14 16:17:18 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/15 15:22:24 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int					intlen(__int128 n);
 int					check_width(const char *str);
 int					check_length(const char *str, int *i);
 int					check_symbol(char c);
+int					ft_a_toi(const char *str);
 int					check_precision(const char *str);
 void				prepare_to_print(va_list argptr);
 void				print_char(int c);

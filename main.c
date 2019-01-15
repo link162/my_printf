@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 12:35:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/14 16:07:25 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/15 17:27:57 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int main(void)
 {
 	int o;
 	int m;
-
-	o = printf("%llllllllld\n", 128);
-	m = ft_printf("%llllllllld\n", 128);
+	float a = 42.9;
+	o = printf("%lfo\n", a);
+	m = ft_printf("%lfm\n", a);
 	printf("origin = %i\nmy     = %i\n", o, m);
 }

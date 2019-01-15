@@ -6,11 +6,32 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 19:20:07 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/09 13:55:25 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/15 15:37:51 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
+
+int			ft_a_toi(const char *str)
+{
+	__int128	res;
+	int			i;
+	int			m;
+
+	i = 0;
+	res = 0;
+	m = 1;
+	while (str[i] == '-')
+		i++;
+	if (i > 0)
+		m = -1;
+	while (ft_isdigit(str[i]))
+		res = (res * 10) + (str[i++] - '0');
+	res *= m;
+	if (res > 2147483647 || res < -2147483648)
+		return (-2147483648);
+	return ((int)res);
+}
 
 static int	print_16(char *str, __int128 nbr)
 {

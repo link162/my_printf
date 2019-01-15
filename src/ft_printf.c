@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:38:09 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/14 16:17:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/15 15:48:47 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int	check_flags(char c)
 static int	check_specified(const char *str, va_list argptr)
 {
 	int i;
+	int tmp;
 
 	struct_to_nul();
 	i = 1;
@@ -47,8 +48,14 @@ static int	check_specified(const char *str, va_list argptr)
 		i++;
 	if (!str[i])
 		return (i - 1);
-	i += check_width(&str[i]);
-	i += check_precision(&str[i]);
+	tmp = check_width(&str[i]);
+	if (tmp == -1)
+		return (-1);
+	i += tmp;
+	tmp = check_precision(&str[i]);
+	if (tmp == -1)
+		return (-1);
+	i += tmp;
 	while (check_length(&str[i], &i))
 		i++;
 	while (check_flags(str[i]))
@@ -63,6 +70,7 @@ int			ft_printf(const char *format, ...)
 {
 	va_list argptr;
 	int		i;
+	int		tmp;
 
 	g_count = 0;
 	i = 0;
@@ -70,7 +78,12 @@ int			ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			i += check_specified(&format[i], argptr);
+		{
+			tmp = check_specified(&format[i], argptr);
+			if (tmp == -1)
+				return (-1);
+			i += tmp;
+		}
 		else
 			ft_put_char(format[i]);
 		i++;

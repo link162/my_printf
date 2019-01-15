@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 12:04:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/14 15:16:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/15 12:55:59 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,11 @@ void			print_str(char *str)
 	lenght = str_len;
 	if (g_flags.precision >= 0 && g_flags.precision < str_len)
 		lenght = g_flags.precision;
-	if (g_flags.width > str_len)
-		free_place = g_flags.width - lenght;
+	if ((g_flags.precision >= 0 && g_flags.precision > str_len && str_len <
+				g_flags.width) || g_flags.precision < 0)
+		free_place = g_flags.width - str_len;
+	else if (g_flags.precision >= 0 && g_flags.precision < str_len &&
+			g_flags.precision < g_flags.width)
+		free_place = g_flags.width - g_flags.precision;
 	print_first_last(str, lenght, free_place);
 }
