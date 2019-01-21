@@ -35,7 +35,7 @@ $(OBJ_D):
 	@mkdir -p $(OBJ_D)$(SRC_D)
 
 $(OBJ_D)%.o: %.c
-	@$(C) $(CFLAGS) -g3 $(INCLUDE) -o $@ -c -g3 $<
+	@$(C) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:
 	@make clean -C libft
@@ -45,12 +45,7 @@ fclean: clean
 	@make fclean -C libft
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_D)
-	@rm -rf a.out
 
 re: fclean all
-
-test:
-	@rm -rf a.out
-	@gcc main.c libftprintf.a -I includes
 
 .PHONY: all clean fclean re

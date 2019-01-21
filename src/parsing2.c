@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 09:13:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/14 16:16:58 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/16 13:45:31 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void		print_address_hex(void *p0)
 	intptr_t	p;
 	char		str[255];
 
-	counter = 1;
 	p = (intptr_t)p0;
-	fill_str(str);
+	fill_str(str, &counter);
 	if (p != 0)
 	{
 		i = (sizeof(p) << 3) - 4;
@@ -45,6 +44,8 @@ void		print_address_hex(void *p0)
 			i -= 4;
 		}
 	}
+	if (g_flags.precision == 0)
+		str[2] = '\0';
 	print_ptr(str);
 }
 

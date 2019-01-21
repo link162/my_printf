@@ -6,32 +6,24 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 12:04:35 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/15 12:55:59 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/16 13:50:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
-
-void			print_null(void)
-{
-	ft_put_char('(');
-	ft_put_char('n');
-	ft_put_char('u');
-	ft_put_char('l');
-	ft_put_char('l');
-	ft_put_char(')');
-}
 
 void			print_ptr(char *str)
 {
 	int			str_len;
 	int			free_place;
 	int			nulls_before;
+	int			z;
 
+	z = 0;
 	if (!str)
 	{
-		print_null();
-		return ;
+		str = ft_strdup("(null)");
+		z = 1;
 	}
 	free_place = 0;
 	nulls_before = 0;
@@ -45,6 +37,8 @@ void			print_ptr(char *str)
 		print_first_ptr(str, nulls_before, free_place);
 	else
 		print_last_ptr(str, nulls_before, free_place);
+	if (z)
+		free(str);
 }
 
 void			print_char(int nbr)
@@ -106,11 +100,13 @@ void			print_str(char *str)
 	int			str_len;
 	int			free_place;
 	int			lenght;
+	int			z;
 
+	z = 0;
 	if (!str)
 	{
-		print_null();
-		return ;
+		str = ft_strdup("(null)");
+		z = 1;
 	}
 	free_place = 0;
 	str_len = ft_strlen(str);
@@ -124,4 +120,6 @@ void			print_str(char *str)
 			g_flags.precision < g_flags.width)
 		free_place = g_flags.width - g_flags.precision;
 	print_first_last(str, lenght, free_place);
+	if (z)
+		free(str);
 }

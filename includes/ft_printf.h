@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 11:37:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/15 15:22:24 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/16 13:57:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "../libft/libft.h"
-# include <stdio.h>
 
 unsigned long long	g_count;
 struct
@@ -40,7 +39,7 @@ void				print_str(char *str);
 void				print_int(__int128 nbr);
 void				struct_to_nul(void);
 void				print_address_hex(void *p0);
-void				fill_str(char *str);
+void				fill_str(char *str, int *i);
 void				print_ptr(char *str);
 void				print_hex(__int128 nbr, int f);
 void				print_double(long double nbr);
